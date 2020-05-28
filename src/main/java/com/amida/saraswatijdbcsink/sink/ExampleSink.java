@@ -17,14 +17,18 @@ public class ExampleSink {
 	@Autowired
 	private OutputObjectRepository outputObjectRepository;
 
-	// specify what type of message you are receiveing
+	// specify what type of message you are receiving
 	@StreamListener(Sink.INPUT)
 	public void process(Message<InputObject> message) {
 
 		// convert payoad.
 		// TODO: actually write a real converter and payload data objects.
 		OutputObject output = InputOutputConverter.convert(message.getPayload());
-
-		outputObjectRepository.save(output);
+		if (output == null) {
+			System.out.println(">>>>>>>>>>Error with message conversion");
+		}
+		else {
+			outputObjectRepository.save(output);
+		}
 	}
 }
