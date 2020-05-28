@@ -1,4 +1,4 @@
-package com.amida.saraswatijdbcsink;
+package com.amida.saraswatijdbcsink.sink;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -11,22 +11,20 @@ import com.amida.sink.model.InputObject;
 import com.amida.sink.model.OutputObject;
 import com.amida.sink.repository.OutputObjectRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
-@EnableBinding(Sink.class) @Slf4j
+@EnableBinding(Sink.class)
 public class ExampleSink {
 
-	@Autowired 
+	@Autowired
 	private OutputObjectRepository outputObjectRepository;
 
-    //specify what type of message you are receiveing
-    @StreamListener(Sink.INPUT)
-    public void process(Message<InputObject> message){
+	// specify what type of message you are receiveing
+	@StreamListener(Sink.INPUT)
+	public void process(Message<InputObject> message) {
 
-        //convert payoad. 
-    	//TODO: actually write a real converter and payload data objects.
-        OutputObject output = InputOutputConverter.convert(message.getPayload());
-        
-        outputObjectRepository.save(output);
-    }
+		// convert payoad.
+		// TODO: actually write a real converter and payload data objects.
+		OutputObject output = InputOutputConverter.convert(message.getPayload());
+
+		outputObjectRepository.save(output);
+	}
 }
