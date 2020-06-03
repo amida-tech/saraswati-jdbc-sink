@@ -1,4 +1,4 @@
-package com.amida.sink.model;
+package com.amida.saraswatijdbcsink.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

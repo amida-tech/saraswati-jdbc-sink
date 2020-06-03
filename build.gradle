@@ -30,6 +30,7 @@ dependencies {
 	compile("com.fasterxml.jackson.core:jackson-databind")
 	compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.5.1.RELEASE'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-stream', version: '3.0.4.RELEASE'
+	compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.1.0'
 	compile("org.springframework.cloud:spring-cloud-stream-test-support")
 	compile("org.apache.kafka:kafka-streams")
 	compile("org.springframework.cloud:spring-cloud-stream-binder-kafka")

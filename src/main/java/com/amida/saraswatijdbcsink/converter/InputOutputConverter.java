@@ -1,7 +1,7 @@
 package com.amida.saraswatijdbcsink.converter;
 
-import com.amida.sink.model.InputObject;
-import com.amida.sink.model.OutputObject;
+import com.amida.saraswatijdbcsink.model.InputObject;
+import com.amida.saraswatijdbcsink.model.OutputObject;
 
 public class InputOutputConverter {
 	
