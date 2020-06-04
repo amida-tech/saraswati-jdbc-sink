@@ -8,4 +8,7 @@ import com.amida.saraswatijdbcsink.model.OutputObject;
 @Repository
 public interface OutputObjectRepository extends CrudRepository<OutputObject, Long>{
 	
+	public OutputObject findByid(Long id);
+	
+	public OutputObject findByFirstName(String firstName);
 }

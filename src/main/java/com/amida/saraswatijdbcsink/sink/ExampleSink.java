@@ -9,12 +9,13 @@ import org.springframework.messaging.Message;
 import com.amida.saraswatijdbcsink.converter.InputOutputConverter;
 import com.amida.saraswatijdbcsink.model.InputObject;
 import com.amida.saraswatijdbcsink.model.OutputObject;
+import com.amida.saraswatijdbcsink.sink.repository.OutputObjectRepository;
 
 @EnableBinding(Sink.class)
 public class ExampleSink {
 
 	@Autowired
-	private com.amida.saraswatijdbcsink.sink.repository.OutputObjectRepository outputObjectRepository;
+	private OutputObjectRepository outputObjectRepository;
 
 	// specify what type of message you are receiving
 	@StreamListener(Sink.INPUT)
