@@ -2,6 +2,8 @@ package com.amida.saraswatijdbcsink;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.InputStream;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,9 +12,12 @@ import org.springframework.messaging.Message;
 import com.amida.saraswatijdbcsink.converter.InputOutputConverter;
 import com.amida.saraswatijdbcsink.mocks.InputMock;
 import com.amida.saraswatijdbcsink.mocks.OutputMock;
+import com.amida.saraswatijdbcsink.mocks.PayloadMock;
 import com.amida.saraswatijdbcsink.model.InputObject;
 import com.amida.saraswatijdbcsink.model.OutputObject;
 import com.amida.saraswatijdbcsink.sink.repository.OutputObjectRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 class SaraswatiJdbcSinkApplicationTests {
@@ -33,7 +38,15 @@ class SaraswatiJdbcSinkApplicationTests {
 	public void testInputIngest() throws Exception {
 		// Test input mapping against inputmock.
 		
-		Message<InputObject> message = new Message<InputObject>();
+		//TODO: Needs to be finished after the model is updated.
+		PayloadMock payloadMock = new PayloadMock();
+		
+		ObjectMapper payloadMockMapper = new ObjectMapper();
+		
+		InputStream payloadInputStream = 
+				TypeReference.class.getResourceAsStream("/payloadMock.json");
+		
+		payloadMock.setPayload("");
 	}
 
 	@Test
