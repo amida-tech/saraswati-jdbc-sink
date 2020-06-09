@@ -7,7 +7,7 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.Message;
 
 import com.amida.saraswatijdbcsink.converter.InputOutputConverter;
-import com.amida.saraswatijdbcsink.model.InputObject;
+import com.amida.saraswatijdbcsink.model.InputObjectIngest;
 import com.amida.saraswatijdbcsink.model.OutputObject;
 import com.amida.saraswatijdbcsink.sink.repository.OutputObjectRepository;
 
@@ -19,7 +19,7 @@ public class ExampleSink {
 
 	// specify what type of message you are receiving
 	@StreamListener(Sink.INPUT)
-	public void process(Message<InputObject> message) {
+	public void process(Message<InputObjectIngest> message) {
 
 		// convert payoad.
 		// TODO: actually write a real converter and payload data objects.
