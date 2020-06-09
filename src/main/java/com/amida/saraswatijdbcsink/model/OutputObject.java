@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Entity
 public class OutputObject {	
 	@Id
@@ -19,40 +17,62 @@ public class OutputObject {
     private Long id;
 	
 	@Column(name = "first_name")
-	@JsonProperty("firstName")
-	private String firstName;
+	private List<String> firstName;
 	
 	@Column(name = "last_name")
-	@JsonProperty("lastName")
 	private String lastName;
 	
+	@Column(name = "date_of_birth")
+	private String dateOfBirth;
+	
 	@Column(name = "subscriber_id")
-	@JsonProperty("subscriberId")
-	private String subscriberId;
+	private List<String> subscriberId;
 	
 	@Column(name = "group_id")
-	@JsonProperty("groupId")
-	private String groupId;
+	private List<String> groupId;
+	
+	@Column(name = "language")
+	private String language;
 	
 	@OneToMany(mappedBy="OutputObject", fetch=FetchType.EAGER)
-	@JsonProperty("demographics")
-	private List<DemographicsObject> demographics;
-	
-	@Column(name = "codes")
-	@JsonProperty("codes")
 	private List<CodeObjectIngest> codes;
+	
+	@OneToMany(mappedBy="OutputObject", fetch=FetchType.EAGER)
+	private AddressObjectOutput address;
+	
+	@Column(name = "alc")
+	private Boolean alc;
+	
+	@Column(name = "cholesterol")
+	private Boolean cholesterol;
+	
+	@Column(name = "psa")
+	private Boolean psa;
+	
+	@Column(name = "leadScreening")
+	private Boolean leadScreening;
+	
+	@Column(name = "fileIndicator")
+	private String fileIndicator;
 	
 	public OutputObject() {};
 
-	public OutputObject(Long id, String firstName, String lastName, String subscriberId, String groupId, List<DemographicsObject> demographics, List<CodeObjectIngest> codes) {
+	public OutputObject(Long id, List<String> firstName, String lastName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, List<CodeObjectIngest> codes, AddressObjectOutput address, Boolean alc, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
 		this.subscriberId = subscriberId;
 		this.groupId = groupId;
-		this.demographics = demographics;
+		this.language = language;
 		this.codes = codes;
+		this.address = address;
+		this.alc = alc;
+		this.cholesterol = cholesterol;
+		this.psa = psa;
+		this.leadScreening = leadScreening;
+		this.fileIndicator = fileIndicator;
 	}
 
 	public Long getId() {
@@ -63,11 +83,11 @@ public class OutputObject {
 		this.id = id;
 	}
 
-	public String getFirstName() {
+	public List<String> getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(List<String> firstName) {
 		this.firstName = firstName;
 	}
 
@@ -79,28 +99,36 @@ public class OutputObject {
 		this.lastName = lastName;
 	}
 
-	public String getSubscriberId() {
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public List<String> getSubscriberId() {
 		return subscriberId;
 	}
 
-	public void setSubscriberId(String subscriberId) {
+	public void setSubscriberId(List<String> subscriberId) {
 		this.subscriberId = subscriberId;
 	}
 
-	public String getGroupId() {
+	public List<String> getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(String groupId) {
+	public void setGroupId(List<String> groupId) {
 		this.groupId = groupId;
 	}
 
-	public List<DemographicsObject> getDemographics() {
-		return demographics;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setDemographics(List<DemographicsObject> demographics) {
-		this.demographics = demographics;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public List<CodeObjectIngest> getCodes() {
@@ -110,7 +138,53 @@ public class OutputObject {
 	public void setCodes(List<CodeObjectIngest> codes) {
 		this.codes = codes;
 	}
-	
-	
+
+	public AddressObjectOutput getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressObjectOutput address) {
+		this.address = address;
+	}
+
+	public Boolean getAlc() {
+		return alc;
+	}
+
+	public void setAlc(Boolean alc) {
+		this.alc = alc;
+	}
+
+	public Boolean getCholesterol() {
+		return cholesterol;
+	}
+
+	public void setCholesterol(Boolean cholesterol) {
+		this.cholesterol = cholesterol;
+	}
+
+	public Boolean getPsa() {
+		return psa;
+	}
+
+	public void setPsa(Boolean psa) {
+		this.psa = psa;
+	}
+
+	public Boolean getLeadScreening() {
+		return leadScreening;
+	}
+
+	public void setLeadScreening(Boolean leadScreening) {
+		this.leadScreening = leadScreening;
+	}
+
+	public String getFileIndicator() {
+		return fileIndicator;
+	}
+
+	public void setFileIndicator(String fileIndicator) {
+		this.fileIndicator = fileIndicator;
+	}
 
 }
