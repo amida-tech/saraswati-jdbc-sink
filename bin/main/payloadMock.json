@@ -1,0 +1,28 @@
+{
+    "firstName":"John",
+    "lastName":"Doe",
+    "subscriberId":"2",
+    "groupId":"247",
+    "demographics":[
+       {
+          "type":"address",
+          "objectBody":{
+             "street":"323 Dogwood ln",
+             "city":"Raleigh",
+             "state":"NC",
+             "postalCode":"27612",
+             "country":"USA"
+          }
+       }
+    ],
+    "codes":[
+       {
+          "system":"loinc",
+          "value":"1313"
+       },
+       {
+          "system":"cpt",
+          "value":"abcdefg"
+       }
+    ]
+ }

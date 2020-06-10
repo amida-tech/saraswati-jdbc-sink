@@ -49,21 +49,21 @@ class SaraswatiJdbcSinkApplicationTests {
 //		payloadMock.setPayload("");
 //	}
 //
-//	@Test
-//	public void testOutputValues() throws Exception {
-//		// Create Assertions of Mocks for Static Implementation
-//		InputMock inputMockAssert = new InputMock();
-//		OutputMock outputMockAssert = new OutputMock();
-//
-//		// Define Mocks and tests
-//		OutputObject outputMock = outputMockAssert.outputMock();
-//		OutputObject outputTest = InputOutputConverter.convert(inputMockAssert.inputMock());
-//
-//		// TODO: rewrites to the converter and model will need to be reflected here.
-//		// Compare Tests
-//		assertEquals(outputTest.getFirstName(), outputMock.getFirstName());
-//		assertEquals(outputTest.getLastName(), outputMock.getLastName());
-//	}
+	@Test
+	public void testOutputValues() throws Exception {
+		// Create Assertions of Mocks for Static Implementation
+		InputMock inputMockAssert = new InputMock();
+		OutputMock outputMockAssert = new OutputMock();
+
+		// Define Mocks and tests
+		OutputObject outputMock = outputMockAssert.outputMock();
+		OutputObject outputTest = InputOutputConverter.convert(inputMockAssert.inputMock());
+
+		// TODO: rewrites to the converter and model will need to be reflected here.
+		// Compare Tests
+		assertEquals(outputTest.getFirstName(), outputMock.getFirstName());
+		assertEquals(outputTest.getLastName(), outputMock.getLastName());
+	}
 //
 //	@Test
 //	public void testOutputWrite() throws Exception {

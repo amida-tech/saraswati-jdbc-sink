@@ -1,6 +1,5 @@
 package com.amida.saraswatijdbcsink.model;
 
-//@Entity
 public class CodeObjectIngest{
 
 	private String codeSystem;

@@ -1,10 +1,11 @@
 package com.amida.saraswatijdbcsink.mocks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.amida.saraswatijdbcsink.model.AddressObjectIngest;
 import com.amida.saraswatijdbcsink.model.CodeObjectIngest;
-import com.amida.saraswatijdbcsink.model.DemographicsObject;
 import com.amida.saraswatijdbcsink.model.InputObjectIngest;
 
 public class InputMock {
@@ -12,35 +13,45 @@ public class InputMock {
 		//instantiate mock
 		InputObjectIngest inputMock = new InputObjectIngest();
 		
-		//Demographics mock
-		ArrayList<DemographicsObject> demographicListMock = new ArrayList();
-		DemographicsObject demographicMock = new DemographicsObject();
+		//List Mocks
+		//firstName, subscriberId, groupId
+		List<String> firstNameList = new ArrayList<String>(Arrays.asList("James", "Tiberius"));
+		List<String> subscriberIdList = new ArrayList<String>(Arrays.asList("2"));
+		List<String> groupIdList = new ArrayList<String>(Arrays.asList("247"));
+		
+		inputMock.setFirstName(firstNameList);
+		inputMock.setSubscriberId(subscriberIdList);
+		inputMock.setGroupId(groupIdList);
+		
+		//Race Mock
+		CodeObjectIngest raceMock = new CodeObjectIngest("Universal Race Standard","0","Unknown");
+		inputMock.setRace(raceMock);
+		
+		//Marital Status Mock
+		CodeObjectIngest maritalStatusMock = new CodeObjectIngest("Universal Marriage Standard","0","Unmarried");
+		inputMock.setMaritalStatus(maritalStatusMock);
+		
+		//Address mock
 		AddressObjectIngest addressMock = new AddressObjectIngest();
-		addressMock.setStreet("1776 Constitution Avenue");
+		List<String> streetList = new ArrayList<String>(Arrays.asList("1776 Constitution Avenue"));
+		
+		addressMock.setStreet(streetList);
 		addressMock.setCity("Riverside");
-		addressMock.setPostalCode("52327-1701");
+		addressMock.setZipCode("52327-1701");
 		addressMock.setState("IA");
 		addressMock.setCountry("United Earth Federation");
-		demographicMock.setType("address");
-		demographicMock.setObjectBody(addressMock);
-		demographicListMock.add(demographicMock);
-		
-		
-		//Codes Mock
-		ArrayList<CodeObjectIngest> codeListMock = new ArrayList<CodeObjectIngest>();
-		CodeObjectIngest code1 = new CodeObjectIngest("loinc","1313");
-		CodeObjectIngest code2 = new CodeObjectIngest("cpt","abcdefg");
-		codeListMock.add(code1);
-		codeListMock.add(code2);
+		inputMock.setAddress(addressMock);
 		
 		//Assemble mock
 		inputMock.setId((long) 1701);
-		inputMock.setFirstName("James");
 		inputMock.setLastName("Kirk");
-		inputMock.setSubscriberId("2");
-		inputMock.setGroupId("247");
-		inputMock.setDemographics(demographicListMock);
-		inputMock.setCodes(codeListMock);
+		inputMock.setLanguage("en");
+		inputMock.setAlc(false);
+		inputMock.setCholesterol(false);
+		inputMock.setPsa(false);
+		inputMock.setLeadScreening(false);
+		inputMock.setFileIndicator("ncc1701kirk.xml");
+
 		
 		return inputMock;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.amida.saraswatijdbcsink.model.AddressObjectOutput;
 import com.amida.saraswatijdbcsink.model.CodeObjectIngest;
+import com.amida.saraswatijdbcsink.model.CodeObjectOutput;
 import com.amida.saraswatijdbcsink.model.InputObjectIngest;
 import com.amida.saraswatijdbcsink.model.OutputObject;
 
@@ -22,15 +23,17 @@ public class InputOutputConverter {
 		output.setFileIndicator(input.getFileIndicator());
 		
 		//Create codelist
-		List <CodeObjectIngest> codeList = new ArrayList<CodeObjectIngest>();
+		List <CodeObjectIngest> inputCodes = new ArrayList<CodeObjectIngest>();
+		CodeObjectOutput converter = new CodeObjectOutput();
 		
-		codeList.add(input.getRace());
-		codeList.add(input.getMaritalStatus());
+		inputCodes.add(input.getRace());
+		inputCodes.add(input.getMaritalStatus());
+		List<CodeObjectOutput> codeList = new ArrayList<CodeObjectOutput>(converter.convertInputToOutput(inputCodes));
 		output.setCodes(codeList);
 		
 		//Run address converter
-		AddressObjectOutput addressOutput = new AddressObjectOutput();
-		addressOutput = addressOutput.convertInputToOutput(input.getAddress());
+		List<AddressObjectOutput> addressOutput = new ArrayList<AddressObjectOutput>();
+		addressOutput = addressOutput.get(0).convertInputToOutput(input.getAddress());
 		output.setAddress(addressOutput);
 		
 		//Booleans

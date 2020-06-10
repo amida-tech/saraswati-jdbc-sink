@@ -1,5 +1,7 @@
 package com.amida.saraswatijdbcsink.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -7,15 +9,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @Entity
+@Table(name="address")
+@TypeDefs({
+    @TypeDef(
+        name = "string-array",
+        typeClass = StringArrayType.class
+    )
+})
 public class AddressObjectOutput {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-	@Column(name = "street")
+	@Type(type = "string-array")
+	@Column(name = "street", columnDefinition = "text[]")
 	private List<String> street;
 
 	@Column(name = "city")
@@ -42,16 +59,17 @@ public class AddressObjectOutput {
 		this.country = country;
 	}
 
-	public AddressObjectOutput convertInputToOutput(AddressObjectIngest input) {
+	public List<AddressObjectOutput> convertInputToOutput(AddressObjectIngest input) {
 		
-		AddressObjectOutput addressOutput = new AddressObjectOutput();
-		addressOutput.setStreet(input.getStreet());
-		addressOutput.setCity(input.getCity());
-		addressOutput.setState(input.getState());
-		addressOutput.setZipCode(input.getZipCode());
-		addressOutput.setCountry(input.getCountry());
+		AddressObjectOutput outputObject = new AddressObjectOutput();
+		outputObject.setStreet(input.getStreet());
+		outputObject.setCity(input.getCity());
+		outputObject.setState(input.getState());
+		outputObject.setZipCode(input.getZipCode());
+		outputObject.setCountry(input.getCountry());
+		List<AddressObjectOutput> output = new ArrayList<AddressObjectOutput>(Arrays.asList(outputObject));
 		
-		return addressOutput;
+		return output;
 	}
 	
 	public Long getId() {

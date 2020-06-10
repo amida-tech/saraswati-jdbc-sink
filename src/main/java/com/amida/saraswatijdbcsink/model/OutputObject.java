@@ -34,11 +34,11 @@ public class OutputObject {
 	@Column(name = "language")
 	private String language;
 	
-	@OneToMany(mappedBy="OutputObject", fetch=FetchType.EAGER)
-	private List<CodeObjectIngest> codes;
+	@OneToMany(fetch=FetchType.EAGER)
+	private List<CodeObjectOutput> codes;
 	
-	@OneToMany(mappedBy="OutputObject", fetch=FetchType.EAGER)
-	private AddressObjectOutput address;
+	@OneToMany(fetch=FetchType.EAGER)
+	private List<AddressObjectOutput> address;
 	
 	@Column(name = "alc")
 	private Boolean alc;
@@ -57,7 +57,7 @@ public class OutputObject {
 	
 	public OutputObject() {};
 
-	public OutputObject(Long id, List<String> firstName, String lastName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, List<CodeObjectIngest> codes, AddressObjectOutput address, Boolean alc, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
+	public OutputObject(Long id, List<String> firstName, String lastName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, List<CodeObjectOutput> codes, List<AddressObjectOutput> address, Boolean alc, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -131,19 +131,19 @@ public class OutputObject {
 		this.language = language;
 	}
 
-	public List<CodeObjectIngest> getCodes() {
+	public List<CodeObjectOutput> getCodes() {
 		return codes;
 	}
 
-	public void setCodes(List<CodeObjectIngest> codes) {
-		this.codes = codes;
+	public void setCodes(List<CodeObjectOutput> codeList) {
+		this.codes = codeList;
 	}
 
-	public AddressObjectOutput getAddress() {
+	public List<AddressObjectOutput> getAddress() {
 		return address;
 	}
 
-	public void setAddress(AddressObjectOutput address) {
+	public void setAddress(List<AddressObjectOutput> address) {
 		this.address = address;
 	}
 
