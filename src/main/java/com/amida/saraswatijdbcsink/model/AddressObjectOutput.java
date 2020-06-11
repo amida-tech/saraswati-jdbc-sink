@@ -17,14 +17,14 @@ import org.hibernate.annotations.TypeDefs;
 
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
-@Entity
-@Table(name="address")
 @TypeDefs({
     @TypeDef(
         name = "string-array",
         typeClass = StringArrayType.class
     )
 })
+@Entity
+@Table(name="address")
 public class AddressObjectOutput {
 
 	@Id

@@ -24,16 +24,17 @@ public class InputOutputConverter {
 		
 		//Create codelist
 		List <CodeObjectIngest> inputCodes = new ArrayList<CodeObjectIngest>();
-		CodeObjectOutput converter = new CodeObjectOutput();
+		CodeObjectOutput codeConverter = new CodeObjectOutput();
 		
 		inputCodes.add(input.getRace());
 		inputCodes.add(input.getMaritalStatus());
-		List<CodeObjectOutput> codeList = new ArrayList<CodeObjectOutput>(converter.convertInputToOutput(inputCodes));
+		List<CodeObjectOutput> codeList = new ArrayList<CodeObjectOutput>(codeConverter.convertInputToOutput(inputCodes));
 		output.setCodes(codeList);
 		
 		//Run address converter
+		AddressObjectOutput addressConverter = new AddressObjectOutput();
 		List<AddressObjectOutput> addressOutput = new ArrayList<AddressObjectOutput>();
-		addressOutput = addressOutput.get(0).convertInputToOutput(input.getAddress());
+		addressOutput = addressConverter.convertInputToOutput(input.getAddress());
 		output.setAddress(addressOutput);
 		
 		//Booleans

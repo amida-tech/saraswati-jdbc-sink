@@ -22,8 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 class SaraswatiJdbcSinkApplicationTests {
 
-//	@Autowired
-//	private OutputObjectRepository outputObjectRepository;
+	@Autowired
+	private OutputObjectRepository outputObjectRepository;
 
 	@Test
 	void contextLoads() {
@@ -61,35 +61,36 @@ class SaraswatiJdbcSinkApplicationTests {
 
 		// TODO: rewrites to the converter and model will need to be reflected here.
 		// Compare Tests
-		assertEquals(outputTest.getFirstName(), outputMock.getFirstName());
+		
+		assertEquals(outputTest.getFirstName().get(0), outputMock.getFirstName().get(0));
 		assertEquals(outputTest.getLastName(), outputMock.getLastName());
 	}
-//
-//	@Test
-//	public void testOutputWrite() throws Exception {
-//		// write the output mock to the test db, read it, then remove it.
-//		OutputMock outputMockAssert = new OutputMock();
-//		OutputObject outputMock = outputMockAssert.outputMock();
-//		outputObjectRepository.save(outputMock);
-//		
-//		//Pull object back from test DB
-//		OutputObject returnedObject;
-//		try {
-//			returnedObject = outputObjectRepository.findByFirstName("James");
-//			
-//			//TODO: will need to be updated when the model is improved.
-//			//Test Equality
-//			assertEquals(returnedObject.getFirstName(), outputMock.getFirstName());
-//			assertEquals(returnedObject.getLastName(), outputMock.getLastName());
-//			
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		//Remove object from test DB.
-//		outputObjectRepository.delete(outputMock);
-//
-//	}
+
+	@Test
+	public void testOutputWrite() throws Exception {
+		// write the output mock to the test db, read it, then remove it.
+		OutputMock outputMockAssert = new OutputMock();
+		OutputObject outputMock = outputMockAssert.outputMock();
+		outputObjectRepository.save(outputMock);
+		
+		//Pull object back from test DB
+		OutputObject returnedObject;
+		try {
+			returnedObject = outputObjectRepository.findByFirstName("James");
+			
+			//TODO: will need to be updated when the model is improved.
+			//Test Equality
+			assertEquals(returnedObject.getFirstName().get(0), outputMock.getFirstName().get(0));
+			assertEquals(returnedObject.getLastName(), outputMock.getLastName());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Remove object from test DB.
+		outputObjectRepository.delete(outputMock);
+
+	}
 
 }

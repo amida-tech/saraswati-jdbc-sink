@@ -2,21 +2,37 @@ package com.amida.saraswatijdbcsink.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
+
+@TypeDefs({
+    @TypeDef(
+        name = "string-array",
+        typeClass = StringArrayType.class
+    )
+})
 @Entity
 public class OutputObject {	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-	@Column(name = "first_name")
+	@Type(type = "string-array")
+	@Column(name = "first_name", columnDefinition = "text[]")
 	private List<String> firstName;
 	
 	@Column(name = "last_name")
@@ -25,19 +41,25 @@ public class OutputObject {
 	@Column(name = "date_of_birth")
 	private String dateOfBirth;
 	
-	@Column(name = "subscriber_id")
+	@Type(type = "string-array")
+	@Column(name = "subscriber_id", columnDefinition = "text[]")
 	private List<String> subscriberId;
 	
-	@Column(name = "group_id")
+	@Type(type = "string-array")
+	@Column(name = "group_id", columnDefinition = "text[]")
 	private List<String> groupId;
 	
 	@Column(name = "language")
 	private String language;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="codes", referencedColumnName="id")
 	private List<CodeObjectOutput> codes;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="address", referencedColumnName="id")
 	private List<AddressObjectOutput> address;
 	
 	@Column(name = "alc")
