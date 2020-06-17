@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.amida.saraswatijdbcsink.model.AddressObjectIngest;
-import com.amida.saraswatijdbcsink.model.CodeObjectIngest;
-import com.amida.saraswatijdbcsink.model.InputObjectIngest;
+import com.amida.saraswati.jdbcsink.model.AddressIngest;
+import com.amida.saraswati.jdbcsink.model.CodeIngest;
+import com.amida.saraswati.jdbcsink.model.InputIngest;
 
 public class InputMock {
-	public InputObjectIngest inputMock() {
+	public InputIngest inputMock() {
 		//instantiate mock
-		InputObjectIngest inputMock = new InputObjectIngest();
+		InputIngest inputMock = new InputIngest();
 		
 		//List Mocks
 		//firstName, subscriberId, groupId
@@ -24,15 +24,15 @@ public class InputMock {
 		inputMock.setGroupId(groupIdList);
 		
 		//Race Mock
-		CodeObjectIngest raceMock = new CodeObjectIngest("Universal Race Standard","0","Unknown");
+		CodeIngest raceMock = new CodeIngest("Universal Race Standard","0","Unknown");
 		inputMock.setRace(raceMock);
 		
 		//Marital Status Mock
-		CodeObjectIngest maritalStatusMock = new CodeObjectIngest("Universal Marriage Standard","0","Unmarried");
+		CodeIngest maritalStatusMock = new CodeIngest("Universal Marriage Standard","0","Unmarried");
 		inputMock.setMaritalStatus(maritalStatusMock);
 		
 		//Address mock
-		AddressObjectIngest addressMock = new AddressObjectIngest();
+		AddressIngest addressMock = new AddressIngest();
 		List<String> streetList = new ArrayList<String>(Arrays.asList("1776 Constitution Avenue"));
 		
 		addressMock.setStreet(streetList);

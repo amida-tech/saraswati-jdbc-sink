@@ -2,43 +2,42 @@ package com.amida.saraswatijdbcsink.mocks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import com.amida.saraswatijdbcsink.model.AddressObjectOutput;
-import com.amida.saraswatijdbcsink.model.CodeObjectOutput;
-import com.amida.saraswatijdbcsink.model.OutputObject;
+import com.amida.saraswati.jdbcsink.model.AddressOutput;
+import com.amida.saraswati.jdbcsink.model.CodeOutput;
+import com.amida.saraswati.jdbcsink.model.Output;
 
 public class OutputMock {
-	public OutputObject outputMock() {
+	public Output outputMock() {
 		//instantiate mock
-		OutputObject outputMock = new OutputObject();
+		Output outputMock = new Output();
 		
 		//List Mocks
-		List<String> firstNameList = new ArrayList<String>(Arrays.asList("James", "Tiberius"));
-		List<String> subscriberIdList = new ArrayList<String>(Arrays.asList("2"));
-		List<String> groupIdList = new ArrayList<String>(Arrays.asList("247"));
+		String[] firstNameList =  new String[] {"James", "Tiberius"};
+		String[] subscriberIdList = new String[] {"2"};
+		String[] groupIdList = new String[] {"247"};
 		
 		outputMock.setFirstName(firstNameList);
 		outputMock.setSubscriberId(subscriberIdList);
 		outputMock.setGroupId(groupIdList);
 		
 		//Codes Assembly
-		CodeObjectOutput raceMock = new CodeObjectOutput("Universal Race Standard","0","Unknown");
-		CodeObjectOutput maritalStatusMock = new CodeObjectOutput("Universal Marriage Standard","0","Unmarried");
-		ArrayList<CodeObjectOutput> codesMock = new ArrayList<CodeObjectOutput>(Arrays.asList(raceMock,maritalStatusMock));
+		CodeOutput raceMock = new CodeOutput("Universal Race Standard","0","Unknown");
+		CodeOutput maritalStatusMock = new CodeOutput("Universal Marriage Standard","0","Unmarried");
+		ArrayList<CodeOutput> codesMock = new ArrayList<CodeOutput>(Arrays.asList(raceMock,maritalStatusMock));
 		
 		outputMock.setCodes(codesMock);
 		
 		//Address mock
-		AddressObjectOutput addressMock = new AddressObjectOutput();
-		List<String> streetList = new ArrayList<String>(Arrays.asList("1776 Constitution Avenue"));
-		
+		AddressOutput addressMock = new AddressOutput();
+		String[] streetList = new String[] {"1776 Constitution Avenue"};
+	
 		addressMock.setStreet(streetList);
 		addressMock.setCity("Riverside");
 		addressMock.setZipCode("52327-1701");
 		addressMock.setState("IA");
 		addressMock.setCountry("United Earth Federation");
-		outputMock.setAddress(new ArrayList<AddressObjectOutput>(Arrays.asList(addressMock)));
+		outputMock.setAddress(new ArrayList<AddressOutput>(Arrays.asList(addressMock)));
 		
 		//Assemble mock
 		outputMock.setId((long) 1701);
