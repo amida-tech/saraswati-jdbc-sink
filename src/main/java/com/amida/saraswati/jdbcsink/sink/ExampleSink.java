@@ -23,11 +23,17 @@ public class ExampleSink {
 		// convert payoad.
 		// TODO: actually write a real converter and payload data objects.
 		Output converter = new Output();
-		Output output = converter.convertInputToOutput(message.getPayload());
-		if (output == null) {
-			System.out.println(">>>>>>>>>>Error with message conversion");
-		} else {
-			outputObjectRepository.save(output);
+		Output output;
+		try {
+			output = converter.convertInputToOutput(message.getPayload());
+			if (output == null) {
+				System.out.println(">>>>>>>>>>Error with message conversion");
+			} else {
+				outputObjectRepository.save(output);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
