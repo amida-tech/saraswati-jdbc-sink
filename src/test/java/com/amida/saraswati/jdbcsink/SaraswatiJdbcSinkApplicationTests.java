@@ -26,21 +26,6 @@ class SaraswatiJdbcSinkApplicationTests {
 		assertEquals(2, (1 + 1));
 	}
 
-//	@Test
-//	public void testInputIngest() throws Exception {
-//		// Test input mapping against inputmock.
-//		
-//		//TODO: Needs to be finished after the model is updated.
-//		PayloadMock payloadMock = new PayloadMock();
-//		
-//		ObjectMapper payloadMockMapper = new ObjectMapper();
-//		
-//		InputStream payloadInputStream = 
-//				TypeReference.class.getResourceAsStream("/payloadMock.json");
-//		
-//		payloadMock.setPayload("");
-//	}
-//
 	@Test
 	public void testInputToOutputConversion() throws Exception {
 		// Create Assertions of Mocks for Static Implementation
@@ -69,7 +54,6 @@ class SaraswatiJdbcSinkApplicationTests {
 		try {
 			returnedObject = outputObjectRepository.findByLastName("Kirk");
 			
-			//TODO: will need to be updated when the model is improved.
 			//Test Equality
 			assertEquals(returnedObject.getLastName(), outputMock.getLastName());
 			
