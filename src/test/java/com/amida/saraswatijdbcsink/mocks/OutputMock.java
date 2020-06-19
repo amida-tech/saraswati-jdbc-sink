@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.amida.saraswati.jdbcsink.model.AddressOutput;
-import com.amida.saraswati.jdbcsink.model.CodeOutput;
 import com.amida.saraswati.jdbcsink.model.Output;
 
 public class OutputMock {
@@ -21,13 +20,6 @@ public class OutputMock {
 		outputMock.setSubscriberId(subscriberIdList);
 		outputMock.setGroupId(groupIdList);
 		
-		//Codes Assembly
-		CodeOutput raceMock = new CodeOutput("Universal Race Standard","0","Unknown");
-		CodeOutput maritalStatusMock = new CodeOutput("Universal Marriage Standard","0","Unmarried");
-		ArrayList<CodeOutput> codesMock = new ArrayList<CodeOutput>(Arrays.asList(raceMock,maritalStatusMock));
-		
-		outputMock.setCodes(codesMock);
-		
 		//Address mock
 		AddressOutput addressMock = new AddressOutput();
 		String[] streetList = new String[] {"1776 Constitution Avenue"};
@@ -43,6 +35,9 @@ public class OutputMock {
 		outputMock.setId((long) 1701);
 		outputMock.setLastName("Kirk");
 		outputMock.setLanguage("en");
+		outputMock.setRace("2106-3");
+		outputMock.setGender("M");
+		outputMock.setMaritalStatus("S");
 		outputMock.setAlc(false);
 		outputMock.setCholesterol(false);
 		outputMock.setPsa(false);

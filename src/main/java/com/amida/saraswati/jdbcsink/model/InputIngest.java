@@ -34,11 +34,14 @@ public class InputIngest {
 	@JsonProperty("address")
 	private AddressIngest address;
 	
+	@JsonProperty("gender")
+	private String gender;
+	
 	@JsonProperty("maritalStatus")
-	private CodeIngest maritalStatus;
+	private String maritalStatus;
 	
 	@JsonProperty("race")
-	private CodeIngest race;
+	private String race;
 	
 	@JsonProperty("alc")
 	private boolean alc;
@@ -58,7 +61,7 @@ public class InputIngest {
 	
 	public InputIngest() {};
 
-	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, CodeIngest race, CodeIngest maritalStatus, AddressIngest address, Boolean alc, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
+	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, String race, String gender, String maritalStatus, AddressIngest address, Boolean alc, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -67,6 +70,7 @@ public class InputIngest {
 		this.groupId = groupId;
 		this.language = language;
 		this.race = race;
+		this.gender = gender;
 		this.maritalStatus = maritalStatus;
 		this.address = address;
 		this.alc = alc;
@@ -140,19 +144,27 @@ public class InputIngest {
 		this.address = address;
 	}
 
-	public CodeIngest getMaritalStatus() {
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getMaritalStatus() {
 		return maritalStatus;
 	}
 
-	public void setMaritalStatus(CodeIngest maritalStatus) {
+	public void setMaritalStatus(String maritalStatus) {
 		this.maritalStatus = maritalStatus;
 	}
 
-	public CodeIngest getRace() {
+	public String getRace() {
 		return race;
 	}
 
-	public void setRace(CodeIngest race) {
+	public void setRace(String race) {
 		this.race = race;
 	}
 
@@ -196,4 +208,5 @@ public class InputIngest {
 		this.fileIndicator = fileIndicator;
 	}
 
+	
 }

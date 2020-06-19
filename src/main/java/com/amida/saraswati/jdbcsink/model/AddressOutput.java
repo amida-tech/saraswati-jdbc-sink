@@ -15,6 +15,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
+import com.amida.saraswati.jdbcsink.utils.Utils;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({
@@ -62,7 +63,9 @@ public class AddressOutput {
 	public List<AddressOutput> convertInputToOutput(AddressIngest input) {
 		
 		AddressOutput outputObject = new AddressOutput();
-		String[] streets = (String[]) input.getStreet().toArray();
+		
+		String[] streets = Utils.convertListToArray(input.getStreet());
+		
 		outputObject.setStreet(streets);
 		outputObject.setCity(input.getCity());
 		outputObject.setState(input.getState());

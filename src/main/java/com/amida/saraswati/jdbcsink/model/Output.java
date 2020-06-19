@@ -18,6 +18,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
+import com.amida.saraswati.jdbcsink.utils.Utils;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({ @TypeDef(name = "string-array", typeClass = StringArrayType.class) })
@@ -40,22 +41,26 @@ public class Output {
 	@Type(type = "string-array")
 	@Column(name = "subscriber_id", columnDefinition = "text[]")
 	private String[] subscriberId;
-	
+
 	@Type(type = "string-array")
 	@Column(name = "group_id", columnDefinition = "text[]")
 	private String[] groupId;
 
 	@Column(name = "language")
 	private String language;
+	
+	@Column(name = "race")
+	private String race;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "marital_status")
+	private String maritalStatus;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codes", referencedColumnName = "id")
-	private List<CodeOutput> codes;
-	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="address", referencedColumnName="id")
+	@JoinColumn(name = "address", referencedColumnName = "id")
 	private List<AddressOutput> address;
 
 	@Column(name = "alc")
@@ -77,7 +82,7 @@ public class Output {
 	};
 
 	public Output(Long id, String[] firstName, String lastName, String dateOfBirth, String[] subscriberId,
-			String[] groupId, String language, List<CodeOutput> codes, List<AddressOutput> address, Boolean alc,
+			String[] groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean alc,
 			Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
 		this.id = id;
@@ -87,7 +92,9 @@ public class Output {
 		this.subscriberId = subscriberId;
 		this.groupId = groupId;
 		this.language = language;
-		this.codes = codes;
+		this.race = race;
+		this.gender = gender;
+		this.maritalStatus = maritalStatus;
 		this.address = address;
 		this.alc = alc;
 		this.cholesterol = cholesterol;
@@ -98,25 +105,20 @@ public class Output {
 
 	public Output convertInputToOutput(InputIngest input) {
 		Output output = new Output();
+
+		String[] firstNames = Utils.convertListToArray(input.getFirstName());
+		String[] groupIds = Utils.convertListToArray(input.getGroupId());
+		String[] subscriberIds = Utils.convertListToArray(input.getSubscriberId());
 		
-		String[] firstNames = (String[]) input.getFirstName().toArray();
-		String[] groupIds = (String[]) input.getSubscriberId().toArray();
-		String[] subscriberIds = (String[]) input.getSubscriberId().toArray();
 		output.setFirstName(firstNames);
 		output.setLastName(input.getLastName());
 		output.setDateOfBirth(input.getDateOfBirth());
 		output.setGroupId(groupIds);
 		output.setSubscriberId(subscriberIds);
+		output.setRace(input.getRace());
+		output.setGender(input.getGender());
+		output.setMaritalStatus(input.getMaritalStatus());
 		output.setFileIndicator(input.getFileIndicator());
-
-		// Create codelist
-		List<CodeIngest> inputCodes = new ArrayList<CodeIngest>();
-		CodeOutput codeConverter = new CodeOutput();
-
-		inputCodes.add(input.getRace());
-		inputCodes.add(input.getMaritalStatus());
-		List<CodeOutput> codeList = new ArrayList<CodeOutput>(codeConverter.convertInputToOutput(inputCodes));
-		output.setCodes(codeList);
 
 		// Run address converter
 		AddressOutput addressConverter = new AddressOutput();
@@ -189,12 +191,28 @@ public class Output {
 		this.language = language;
 	}
 
-	public List<CodeOutput> getCodes() {
-		return codes;
+	public String getRace() {
+		return race;
 	}
 
-	public void setCodes(List<CodeOutput> codeList) {
-		this.codes = codeList;
+	public void setRace(String race) {
+		this.race = race;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
 	}
 
 	public List<AddressOutput> getAddress() {
@@ -244,5 +262,5 @@ public class Output {
 	public void setFileIndicator(String fileIndicator) {
 		this.fileIndicator = fileIndicator;
 	}
-
+	
 }

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.amida.saraswati.jdbcsink.model.AddressIngest;
-import com.amida.saraswati.jdbcsink.model.CodeIngest;
 import com.amida.saraswati.jdbcsink.model.InputIngest;
 
 public class InputMock {
@@ -23,14 +22,6 @@ public class InputMock {
 		inputMock.setSubscriberId(subscriberIdList);
 		inputMock.setGroupId(groupIdList);
 		
-		//Race Mock
-		CodeIngest raceMock = new CodeIngest("Universal Race Standard","0","Unknown");
-		inputMock.setRace(raceMock);
-		
-		//Marital Status Mock
-		CodeIngest maritalStatusMock = new CodeIngest("Universal Marriage Standard","0","Unmarried");
-		inputMock.setMaritalStatus(maritalStatusMock);
-		
 		//Address mock
 		AddressIngest addressMock = new AddressIngest();
 		List<String> streetList = new ArrayList<String>(Arrays.asList("1776 Constitution Avenue"));
@@ -46,6 +37,9 @@ public class InputMock {
 		inputMock.setId((long) 1701);
 		inputMock.setLastName("Kirk");
 		inputMock.setLanguage("en");
+		inputMock.setRace("2106-3");
+		inputMock.setGender("M");
+		inputMock.setMaritalStatus("S");
 		inputMock.setAlc(false);
 		inputMock.setCholesterol(false);
 		inputMock.setPsa(false);
