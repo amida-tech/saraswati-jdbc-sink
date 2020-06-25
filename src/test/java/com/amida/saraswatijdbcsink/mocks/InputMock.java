@@ -40,7 +40,7 @@ public class InputMock {
 		inputMock.setRace("2106-3");
 		inputMock.setGender("M");
 		inputMock.setMaritalStatus("S");
-		inputMock.setAlc(false);
+		inputMock.setA1c(false);
 		inputMock.setCholesterol(false);
 		inputMock.setPsa(false);
 		inputMock.setLeadScreening(false);

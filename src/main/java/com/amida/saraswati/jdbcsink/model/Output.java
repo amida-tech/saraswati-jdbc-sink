@@ -63,8 +63,8 @@ public class Output {
 	@JoinColumn(name = "address", referencedColumnName = "id")
 	private List<AddressOutput> address;
 
-	@Column(name = "alc")
-	private Boolean alc;
+	@Column(name = "a1c")
+	private Boolean a1c;
 
 	@Column(name = "cholesterol")
 	private Boolean cholesterol;
@@ -82,7 +82,7 @@ public class Output {
 	};
 
 	public Output(Long id, String[] firstName, String lastName, String dateOfBirth, String[] subscriberId,
-			String[] groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean alc,
+			String[] groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean a1c,
 			Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
 		this.id = id;
@@ -96,7 +96,7 @@ public class Output {
 		this.gender = gender;
 		this.maritalStatus = maritalStatus;
 		this.address = address;
-		this.alc = alc;
+		this.a1c = a1c;
 		this.cholesterol = cholesterol;
 		this.psa = psa;
 		this.leadScreening = leadScreening;
@@ -127,7 +127,7 @@ public class Output {
 		output.setAddress(addressOutput);
 
 		// Booleans
-		output.setAlc(input.isAlc());
+		output.setA1c(input.isA1c());
 		output.setCholesterol(input.isCholesterol());
 		output.setPsa(input.isPsa());
 		output.setLeadScreening(input.isLeadScreening());
@@ -223,12 +223,12 @@ public class Output {
 		this.address = address;
 	}
 
-	public Boolean getAlc() {
-		return alc;
+	public Boolean getA1c() {
+		return a1c;
 	}
 
-	public void setAlc(Boolean alc) {
-		this.alc = alc;
+	public void setA1c(Boolean a1c) {
+		this.a1c = a1c;
 	}
 
 	public Boolean getCholesterol() {

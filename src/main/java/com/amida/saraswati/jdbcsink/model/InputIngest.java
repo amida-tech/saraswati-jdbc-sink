@@ -43,8 +43,8 @@ public class InputIngest {
 	@JsonProperty("race")
 	private String race;
 	
-	@JsonProperty("alc")
-	private boolean alc;
+	@JsonProperty("a1c")
+	private boolean a1c;
 	
 	@JsonProperty("cholesterol")
 	private boolean cholesterol;
@@ -61,7 +61,7 @@ public class InputIngest {
 	
 	public InputIngest() {};
 
-	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, String race, String gender, String maritalStatus, AddressIngest address, Boolean alc, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
+	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, String race, String gender, String maritalStatus, AddressIngest address, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -73,7 +73,7 @@ public class InputIngest {
 		this.gender = gender;
 		this.maritalStatus = maritalStatus;
 		this.address = address;
-		this.alc = alc;
+		this.a1c = a1c;
 		this.cholesterol = cholesterol;
 		this.psa = psa;
 		this.leadScreening = leadScreening;
@@ -168,12 +168,12 @@ public class InputIngest {
 		this.race = race;
 	}
 
-	public boolean isAlc() {
-		return alc;
+	public boolean isA1c() {
+		return a1c;
 	}
 
-	public void setAlc(boolean alc) {
-		this.alc = alc;
+	public void setA1c(boolean a1c) {
+		this.a1c = a1c;
 	}
 
 	public boolean isCholesterol() {

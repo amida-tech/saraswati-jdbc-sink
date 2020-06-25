@@ -38,7 +38,7 @@ public class OutputMock {
 		outputMock.setRace("2106-3");
 		outputMock.setGender("M");
 		outputMock.setMaritalStatus("S");
-		outputMock.setAlc(false);
+		outputMock.setA1c(false);
 		outputMock.setCholesterol(false);
 		outputMock.setPsa(false);
 		outputMock.setLeadScreening(false);
