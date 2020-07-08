@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -23,6 +24,7 @@ import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({ @TypeDef(name = "string-array", typeClass = StringArrayType.class) })
 @Entity
+@Table(name ="patient")
 public class Output {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
