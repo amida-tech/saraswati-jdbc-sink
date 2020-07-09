@@ -63,7 +63,7 @@ class SaraswatiJdbcSinkApplicationTests {
 		}
 
 //		//Remove object from test DB.
-		outputObjectRepository.delete(outputMock);
+//		outputObjectRepository.delete(outputMock);
 
 	}
 

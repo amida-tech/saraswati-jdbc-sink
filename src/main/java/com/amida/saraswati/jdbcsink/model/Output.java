@@ -31,21 +31,21 @@ public class Output {
 	private Long id;
 
 	@Type(type = "string-array")
-	@Column(name = "first_name", columnDefinition = "text[]")
+	@Column(name = "firstName", columnDefinition = "text[]")
 	private String[] firstName;
 
-	@Column(name = "last_name")
+	@Column(name = "lastName")
 	private String lastName;
 
-	@Column(name = "date_of_birth")
+	@Column(name = "dateOfBirth")
 	private String dateOfBirth;
 
 	@Type(type = "string-array")
-	@Column(name = "subscriber_id", columnDefinition = "text[]")
+	@Column(name = "subscriberId", columnDefinition = "text[]")
 	private String[] subscriberId;
 
 	@Type(type = "string-array")
-	@Column(name = "group_id", columnDefinition = "text[]")
+	@Column(name = "groupId", columnDefinition = "text[]")
 	private String[] groupId;
 
 	@Column(name = "language")
@@ -57,7 +57,7 @@ public class Output {
 	@Column(name = "gender")
 	private String gender;
 	
-	@Column(name = "marital_status")
+	@Column(name = "maritalStatus")
 	private String maritalStatus;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
