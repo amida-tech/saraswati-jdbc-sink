@@ -20,6 +20,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import com.amida.saraswati.jdbcsink.utils.Utils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({ @TypeDef(name = "string-array", typeClass = StringArrayType.class) })
@@ -36,6 +37,10 @@ public class Output {
 
 	@Column(name = "lastName")
 	private String lastName;
+	
+	@Column(name = "lastNameLowercase")
+	@JsonIgnore
+	private String lastNameLowercase;
 
 	@Column(name = "dateOfBirth")
 	private String dateOfBirth;
@@ -90,6 +95,7 @@ public class Output {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.lastNameLowercase = lastName.toLowerCase();
 		this.dateOfBirth = dateOfBirth;
 		this.subscriberId = subscriberId;
 		this.groupId = groupId;
@@ -159,6 +165,7 @@ public class Output {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+		this.lastNameLowercase = lastName.toLowerCase();
 	}
 
 	public String getDateOfBirth() {
@@ -263,6 +270,14 @@ public class Output {
 
 	public void setFileIndicator(String fileIndicator) {
 		this.fileIndicator = fileIndicator;
+	}
+
+	public String getLastNameLowercase() {
+		return lastNameLowercase;
+	}
+
+	public void setLastNameLowercase(String lastNameLowercase) {
+		this.lastNameLowercase = lastNameLowercase;
 	}
 	
 }
