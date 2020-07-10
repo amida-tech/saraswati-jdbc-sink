@@ -28,7 +28,8 @@ public class PatientMock {
 		
 		//Address mock
 		AddressOutput addressMock = new AddressOutput();
-		String[] streetList = new String[] {"1776 Constitution Avenue"};
+		Set<String> streetList = new HashSet<String>();
+		subscriberIdList.add("1776 Constitution Avenue");
 	
 		addressMock.setStreet(streetList);
 		addressMock.setCity("Riverside");

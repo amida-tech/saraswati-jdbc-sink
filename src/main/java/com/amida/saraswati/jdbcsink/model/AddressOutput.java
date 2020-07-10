@@ -2,13 +2,18 @@ package com.amida.saraswati.jdbcsink.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -32,9 +37,14 @@ public class AddressOutput {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-	@Type(type = "string-array")
-	@Column(name = "street", columnDefinition = "text[]")
-	private String[] street;
+//	@Type(type = "string-array")
+//	@Column(name = "street", columnDefinition = "text[]")
+//	private String[] street;
+	
+    @ElementCollection
+    @CollectionTable(name = "address_street", joinColumns = @JoinColumn(name = "address_id"))
+    @Column(name = "street")
+    private Set<String> street = new HashSet<>();
 
 	@Column(name = "city")
 	private String city;
@@ -51,7 +61,7 @@ public class AddressOutput {
 	public AddressOutput() {
 	};
 
-	public AddressOutput(Long id, String[] street, String city, String state, String zipCode, String country) {
+	public AddressOutput(Long id, Set<String> street, String city, String state, String zipCode, String country) {
 		this.id = id;
 		this.street = street;
 		this.city = city;
@@ -64,7 +74,7 @@ public class AddressOutput {
 		
 		AddressOutput outputObject = new AddressOutput();
 		
-		String[] streets = Utils.convertListToArray(input.getStreet());
+		Set<String> streets = Utils.convertListToSet(input.getStreet());
 		
 		outputObject.setStreet(streets);
 		outputObject.setCity(input.getCity());
@@ -84,11 +94,11 @@ public class AddressOutput {
 		this.id = id;
 	}
 
-	public String[] getStreet() {
+	public Set<String> getStreet() {
 		return street;
 	}
 
-	public void setStreet(String[] street) {
+	public void setStreet(Set<String> street) {
 		this.street = street;
 	}
 
