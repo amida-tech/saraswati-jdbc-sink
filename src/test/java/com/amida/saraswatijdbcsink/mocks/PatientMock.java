@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.amida.saraswati.jdbcsink.model.AddressOutput;
-import com.amida.saraswati.jdbcsink.model.Output;
+import com.amida.saraswati.jdbcsink.model.Patient;
 
-public class OutputMock {
-	public Output outputMock() {
+public class PatientMock {
+	public Patient outputMock() {
 		//instantiate mock
-		Output outputMock = new Output();
+		Patient outputMock = new Patient();
 		
 		//List Mocks
 		String[] firstNameList =  new String[] {"James", "Tiberius"};

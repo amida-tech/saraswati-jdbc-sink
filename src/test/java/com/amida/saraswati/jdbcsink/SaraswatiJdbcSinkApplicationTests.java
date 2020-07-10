@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.amida.saraswati.jdbcsink.model.Output;
-import com.amida.saraswati.jdbcsink.sink.repository.OutputObjectRepository;
+import com.amida.saraswati.jdbcsink.model.Patient;
+import com.amida.saraswati.jdbcsink.sink.repository.PatientRepository;
 import com.amida.saraswatijdbcsink.mocks.InputMock;
-import com.amida.saraswatijdbcsink.mocks.OutputMock;
+import com.amida.saraswatijdbcsink.mocks.PatientMock;
 
 @SpringBootTest
 class SaraswatiJdbcSinkApplicationTests {
 
 	@Autowired
-	private OutputObjectRepository outputObjectRepository;
+	private PatientRepository patientRepository;
 
 	@Test
 	void contextLoads() {
@@ -30,12 +30,12 @@ class SaraswatiJdbcSinkApplicationTests {
 	public void testInputToOutputConversion() throws Exception {
 		// Create Assertions of Mocks for Static Implementation
 		InputMock inputMockAssert = new InputMock();
-		OutputMock outputMockAssert = new OutputMock();
+		PatientMock outputMockAssert = new PatientMock();
 
 		// Define Mocks and tests
-		Output converter = new Output();
-		Output outputMock = outputMockAssert.outputMock();
-		Output outputTest = converter.convertInputToOutput(inputMockAssert.inputMock());
+		Patient converter = new Patient();
+		Patient outputMock = outputMockAssert.outputMock();
+		Patient outputTest = converter.convertInputToPatient(inputMockAssert.inputMock());
 
 		// Compare Tests
 		assertEquals(outputTest.getLastName(), outputMock.getLastName());
@@ -44,14 +44,14 @@ class SaraswatiJdbcSinkApplicationTests {
 	@Test
 	public void testOutputWrite() throws Exception {
 		// write the output mock to the test db, read it, then remove it.
-		OutputMock outputMockAssert = new OutputMock();
-		Output outputMock = outputMockAssert.outputMock();
-		outputObjectRepository.save(outputMock);
+		PatientMock outputMockAssert = new PatientMock();
+		Patient outputMock = outputMockAssert.outputMock();
+		patientRepository.save(outputMock);
 		//Pull object back from test DB
 		
-		Output returnedObject;
+		Patient returnedObject;
 		try {
-			returnedObject = outputObjectRepository.findByLastNameLowercase("kirk");
+			returnedObject = patientRepository.findByLastNameLowercase("kirk");
 			
 			//Test Equality
 			assertEquals(returnedObject.getLastName(), outputMock.getLastName());
@@ -62,7 +62,7 @@ class SaraswatiJdbcSinkApplicationTests {
 		}
 
 		//Remove object from test DB.
-		outputObjectRepository.delete(outputMock);
+		patientRepository.delete(outputMock);
 
 	}
 

@@ -26,7 +26,7 @@ import com.vladmihalcea.hibernate.type.array.StringArrayType;
 @TypeDefs({ @TypeDef(name = "string-array", typeClass = StringArrayType.class) })
 @Entity
 @Table(name ="patient")
-public class Output {
+public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -85,10 +85,10 @@ public class Output {
 	@Column(name = "fileIndicator")
 	private String fileIndicator;
 
-	public Output() {
+	public Patient() {
 	};
 
-	public Output(Long id, String[] firstName, String lastName, String dateOfBirth, String[] subscriberId,
+	public Patient(Long id, String[] firstName, String lastName, String dateOfBirth, String[] subscriberId,
 			String[] groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean a1c,
 			Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
@@ -111,8 +111,8 @@ public class Output {
 		this.fileIndicator = fileIndicator;
 	}
 
-	public Output convertInputToOutput(InputIngest input) {
-		Output output = new Output();
+	public Patient convertInputToPatient(InputIngest input) {
+		Patient output = new Patient();
 
 		String[] firstNames = Utils.convertListToArray(input.getFirstName());
 		String[] groupIds = Utils.convertListToArray(input.getGroupId());

@@ -7,32 +7,30 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.Message;
 
 import com.amida.saraswati.jdbcsink.model.InputIngest;
-import com.amida.saraswati.jdbcsink.model.Output;
-import com.amida.saraswati.jdbcsink.sink.repository.OutputObjectRepository;
+import com.amida.saraswati.jdbcsink.model.Patient;
+import com.amida.saraswati.jdbcsink.sink.repository.PatientRepository;
 
 @EnableBinding(Sink.class)
 public class ExampleSink {
 
 	@Autowired
-	private OutputObjectRepository outputObjectRepository;
+	private PatientRepository patientRepository;
 
 	// specify what type of message you are receiving
 	@StreamListener(Sink.INPUT)
 	public void process(Message<InputIngest> message) {
 
 		// convert payoad.
-		// TODO: actually write a real converter and payload data objects.
-		Output converter = new Output();
-		Output output;
+		Patient converter = new Patient();
+		Patient output;
 		try {
-			output = converter.convertInputToOutput(message.getPayload());
+			output = converter.convertInputToPatient(message.getPayload());
 			if (output == null) {
 				System.out.println(">>>>>>>>>>Error with message conversion");
 			} else {
-				outputObjectRepository.save(output);
+				patientRepository.save(output);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
