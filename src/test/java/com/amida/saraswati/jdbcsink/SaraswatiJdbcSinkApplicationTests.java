@@ -37,7 +37,6 @@ class SaraswatiJdbcSinkApplicationTests {
 		Output outputMock = outputMockAssert.outputMock();
 		Output outputTest = converter.convertInputToOutput(inputMockAssert.inputMock());
 
-		// TODO: rewrites to the converter and model will need to be reflected here.
 		// Compare Tests
 		assertEquals(outputTest.getLastName(), outputMock.getLastName());
 	}
@@ -48,11 +47,11 @@ class SaraswatiJdbcSinkApplicationTests {
 		OutputMock outputMockAssert = new OutputMock();
 		Output outputMock = outputMockAssert.outputMock();
 		outputObjectRepository.save(outputMock);
-
-//		//Pull object back from test DB
+		//Pull object back from test DB
+		
 		Output returnedObject;
 		try {
-			returnedObject = outputObjectRepository.findByLastName("Kirk");
+			returnedObject = outputObjectRepository.findByLastNameLowercase("kirk");
 			
 			//Test Equality
 			assertEquals(returnedObject.getLastName(), outputMock.getLastName());
@@ -62,8 +61,8 @@ class SaraswatiJdbcSinkApplicationTests {
 			e.printStackTrace();
 		}
 
-//		//Remove object from test DB.
-//		outputObjectRepository.delete(outputMock);
+		//Remove object from test DB.
+		outputObjectRepository.delete(outputMock);
 
 	}
 

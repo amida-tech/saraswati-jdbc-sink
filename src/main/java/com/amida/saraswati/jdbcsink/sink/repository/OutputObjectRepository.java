@@ -10,5 +10,5 @@ public interface OutputObjectRepository extends CrudRepository<Output, Long>{
 	
 	public Output findByid(Long id);
 	
-	public Output findByLastName(String lastName);
+	public Output findByLastNameLowercase(String lastName);
 }

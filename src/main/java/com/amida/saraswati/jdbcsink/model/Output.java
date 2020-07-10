@@ -101,7 +101,7 @@ public class Output {
 		this.groupId = groupId;
 		this.language = language;
 		this.race = race;
-		this.gender = gender;
+		this.gender = gender.toUpperCase();
 		this.maritalStatus = maritalStatus;
 		this.address = address;
 		this.a1c = a1c;
@@ -213,7 +213,7 @@ public class Output {
 	}
 
 	public void setGender(String gender) {
-		this.gender = gender;
+		this.gender = gender.toUpperCase();
 	}
 
 	public String getMaritalStatus() {
