@@ -1,10 +1,14 @@
 package com.amida.saraswati.jdbcsink.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,10 +35,15 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Type(type = "string-array")
-	@Column(name = "firstName", columnDefinition = "text[]")
-	private String[] firstName;
+//	@Type(type = "string-array")
+//	@Column(name = "firstName", columnDefinition = "text[]")
+//	private String[] firstName;
 
+    @ElementCollection
+    @CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
+    @Column(name = "firstName")
+    private Set<String> firstName = new HashSet<>();
+	
 	@Column(name = "lastName")
 	private String lastName;
 	
@@ -45,13 +54,15 @@ public class Patient {
 	@Column(name = "dateOfBirth")
 	private String dateOfBirth;
 
-	@Type(type = "string-array")
-	@Column(name = "subscriberId", columnDefinition = "text[]")
-	private String[] subscriberId;
+    @ElementCollection
+    @CollectionTable(name = "patient_subscriber_id", joinColumns = @JoinColumn(name = "patient_id"))
+	@Column(name = "subscriberId")
+	private Set<String> subscriberId;
 
-	@Type(type = "string-array")
-	@Column(name = "groupId", columnDefinition = "text[]")
-	private String[] groupId;
+    @ElementCollection
+    @CollectionTable(name = "patient_group_id", joinColumns = @JoinColumn(name = "patient_id"))
+	@Column(name = "groupId")
+	private Set<String> groupId;
 
 	@Column(name = "language")
 	private String language;
@@ -88,8 +99,8 @@ public class Patient {
 	public Patient() {
 	};
 
-	public Patient(Long id, String[] firstName, String lastName, String dateOfBirth, String[] subscriberId,
-			String[] groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean a1c,
+	public Patient(Long id, Set<String> firstName, String lastName, String dateOfBirth, Set<String> subscriberId,
+			Set<String> groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean a1c,
 			Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
 		this.id = id;
@@ -114,9 +125,9 @@ public class Patient {
 	public Patient convertInputToPatient(InputIngest input) {
 		Patient output = new Patient();
 
-		String[] firstNames = Utils.convertListToArray(input.getFirstName());
-		String[] groupIds = Utils.convertListToArray(input.getGroupId());
-		String[] subscriberIds = Utils.convertListToArray(input.getSubscriberId());
+		Set<String> firstNames = Utils.convertListToSet(input.getFirstName());
+		Set<String> groupIds = Utils.convertListToSet(input.getGroupId());
+		Set<String> subscriberIds = Utils.convertListToSet(input.getSubscriberId());
 		
 		output.setFirstName(firstNames);
 		output.setLastName(input.getLastName());
@@ -151,11 +162,11 @@ public class Patient {
 		this.id = id;
 	}
 
-	public String[] getFirstName() {
+	public Set<String> getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String[] firstName) {
+	public void setFirstName(Set<String> firstName) {
 		this.firstName = firstName;
 	}
 
@@ -176,19 +187,19 @@ public class Patient {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String[] getSubscriberId() {
+	public Set<String> getSubscriberId() {
 		return subscriberId;
 	}
 
-	public void setSubscriberId(String[] subscriberId) {
+	public void setSubscriberId(Set<String> subscriberId) {
 		this.subscriberId = subscriberId;
 	}
 
-	public String[] getGroupId() {
+	public Set<String> getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(String[] groupId) {
+	public void setGroupId(Set<String> groupId) {
 		this.groupId = groupId;
 	}
 

@@ -2,6 +2,8 @@ package com.amida.saraswatijdbcsink.mocks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.amida.saraswati.jdbcsink.model.AddressOutput;
 import com.amida.saraswati.jdbcsink.model.Patient;
@@ -12,9 +14,13 @@ public class PatientMock {
 		Patient outputMock = new Patient();
 		
 		//List Mocks
-		String[] firstNameList =  new String[] {"James", "Tiberius"};
-		String[] subscriberIdList = new String[] {"2"};
-		String[] groupIdList = new String[] {"247"};
+		Set<String> firstNameList = new HashSet<String>();
+		firstNameList.add("James");
+		firstNameList.add("Tiberius");
+		Set<String> subscriberIdList = new HashSet<String>();
+		subscriberIdList.add("2");
+		Set<String> groupIdList = new HashSet<String>();
+		groupIdList.add("247");
 		
 		outputMock.setFirstName(firstNameList);
 		outputMock.setSubscriberId(subscriberIdList);
