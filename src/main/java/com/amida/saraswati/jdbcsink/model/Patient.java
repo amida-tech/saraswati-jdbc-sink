@@ -35,14 +35,10 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-//	@Type(type = "string-array")
-//	@Column(name = "firstName", columnDefinition = "text[]")
-//	private String[] firstName;
-
     @ElementCollection
     @CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
     @Column(name = "firstName")
-    private Set<String> firstName = new HashSet<>();
+    private List<String> firstName = new ArrayList<>();
 	
 	@Column(name = "lastName")
 	private String lastName;
@@ -99,7 +95,7 @@ public class Patient {
 	public Patient() {
 	};
 
-	public Patient(Long id, Set<String> firstName, String lastName, String dateOfBirth, Set<String> subscriberId,
+	public Patient(Long id, List<String> firstName, String lastName, String dateOfBirth, Set<String> subscriberId,
 			Set<String> groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean a1c,
 			Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
 		super();
@@ -125,11 +121,10 @@ public class Patient {
 	public Patient convertInputToPatient(InputIngest input) {
 		Patient output = new Patient();
 
-		Set<String> firstNames = Utils.convertListToSet(input.getFirstName());
 		Set<String> groupIds = Utils.convertListToSet(input.getGroupId());
 		Set<String> subscriberIds = Utils.convertListToSet(input.getSubscriberId());
 		
-		output.setFirstName(firstNames);
+		output.setFirstName(input.getFirstName());
 		output.setLastName(input.getLastName());
 		output.setDateOfBirth(input.getDateOfBirth());
 		output.setGroupId(groupIds);
@@ -162,11 +157,11 @@ public class Patient {
 		this.id = id;
 	}
 
-	public Set<String> getFirstName() {
+	public List<String> getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(Set<String> firstName) {
+	public void setFirstName(List<String> firstName) {
 		this.firstName = firstName;
 	}
 
