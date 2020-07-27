@@ -8,60 +8,63 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class InputIngest {	
+public class InputIngest {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	@JsonProperty("firstName")
 	private List<String> firstName;
-	
+
 	@JsonProperty("lastName")
 	private String lastName;
-	
+
 	@JsonProperty("dateOfBirth")
 	private String dateOfBirth;
-	
+
 	@JsonProperty("subscriberId")
 	private List<String> subscriberId;
-	
+
 	@JsonProperty("groupId")
 	private List<String> groupId;
-	
+
 	@JsonProperty("language")
 	private String language;
-	
+
 	@JsonProperty("address")
 	private AddressIngest address;
-	
+
 	@JsonProperty("gender")
 	private String gender;
-	
+
 	@JsonProperty("maritalStatus")
 	private String maritalStatus;
-	
+
 	@JsonProperty("race")
 	private String race;
-	
+
 	@JsonProperty("a1c")
 	private boolean a1c;
-	
+
 	@JsonProperty("cholesterol")
 	private boolean cholesterol;
-	
+
 	@JsonProperty("psa")
 	private boolean psa;
-	
+
 	@JsonProperty("leadScreening")
 	private boolean leadScreening;
-	
+
 	@JsonProperty("fileIndicator")
 	private String fileIndicator;
-	
-	
-	public InputIngest() {};
 
-	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId, List<String> groupId, String language, String race, String gender, String maritalStatus, AddressIngest address, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
+	public InputIngest() {
+	};
+
+	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId,
+			List<String> groupId, String language, String race, String gender, String maritalStatus,
+			AddressIngest address, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening,
+			String fileIndicator) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -208,5 +211,4 @@ public class InputIngest {
 		this.fileIndicator = fileIndicator;
 	}
 
-	
 }

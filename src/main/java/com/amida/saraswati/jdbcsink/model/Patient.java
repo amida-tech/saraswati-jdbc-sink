@@ -1,7 +1,6 @@
 package com.amida.saraswati.jdbcsink.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,31 +19,26 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 
 import com.amida.saraswati.jdbcsink.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
-@TypeDefs({ @TypeDef(name = "string-array", typeClass = StringArrayType.class) })
 @Entity
-@Table(name ="patient")
+@Table(name = "patient")
 public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
+	@ElementCollection
+	@CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
 	@OrderColumn
-    @Column(name = "firstName")
-    private List<String> firstName = new ArrayList<>();
-	
+	@Column(name = "firstName")
+	private List<String> firstName = new ArrayList<>();
+
 	@Column(name = "lastName")
 	private String lastName;
-	
+
 	@Column(name = "lastNameLowercase")
 	@JsonIgnore
 	private String lastNameLowercase;
@@ -52,25 +46,25 @@ public class Patient {
 	@Column(name = "dateOfBirth")
 	private String dateOfBirth;
 
-    @ElementCollection
-    @CollectionTable(name = "patient_subscriber_id", joinColumns = @JoinColumn(name = "patient_id"))
+	@ElementCollection
+	@CollectionTable(name = "patient_subscriber_id", joinColumns = @JoinColumn(name = "patient_id"))
 	@Column(name = "subscriberId")
 	private Set<String> subscriberId;
 
-    @ElementCollection
-    @CollectionTable(name = "patient_group_id", joinColumns = @JoinColumn(name = "patient_id"))
+	@ElementCollection
+	@CollectionTable(name = "patient_group_id", joinColumns = @JoinColumn(name = "patient_id"))
 	@Column(name = "groupId")
 	private Set<String> groupId;
 
 	@Column(name = "language")
 	private String language;
-	
+
 	@Column(name = "race")
 	private String race;
-	
+
 	@Column(name = "gender")
 	private String gender;
-	
+
 	@Column(name = "maritalStatus")
 	private String maritalStatus;
 
@@ -98,8 +92,9 @@ public class Patient {
 	};
 
 	public Patient(Long id, List<String> firstName, String lastName, String dateOfBirth, Set<String> subscriberId,
-			Set<String> groupId, String language, String race, String gender, String maritalStatus, List<AddressOutput> address, Boolean a1c,
-			Boolean cholesterol, Boolean psa, Boolean leadScreening, String fileIndicator) {
+			Set<String> groupId, String language, String race, String gender, String maritalStatus,
+			List<AddressOutput> address, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening,
+			String fileIndicator) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -125,7 +120,7 @@ public class Patient {
 
 		Set<String> groupIds = Utils.convertListToSet(input.getGroupId());
 		Set<String> subscriberIds = Utils.convertListToSet(input.getSubscriberId());
-		
+
 		output.setFirstName(input.getFirstName());
 		output.setLastName(input.getLastName());
 		output.setDateOfBirth(input.getDateOfBirth());
@@ -287,5 +282,5 @@ public class Patient {
 	public void setLastNameLowercase(String lastNameLowercase) {
 		this.lastNameLowercase = lastNameLowercase;
 	}
-	
+
 }

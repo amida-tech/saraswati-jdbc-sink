@@ -16,35 +16,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
-
 import com.amida.saraswati.jdbcsink.utils.Utils;
-import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
-@TypeDefs({
-    @TypeDef(
-        name = "string-array",
-        typeClass = StringArrayType.class
-    )
-})
 @Entity
-@Table(name="address")
+@Table(name = "address")
 public class AddressOutput {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 //	@Type(type = "string-array")
 //	@Column(name = "street", columnDefinition = "text[]")
 //	private String[] street;
-	
-    @ElementCollection
-    @CollectionTable(name = "address_street", joinColumns = @JoinColumn(name = "address_id"))
-    @Column(name = "street")
-    private Set<String> street = new HashSet<>();
+
+	@ElementCollection
+	@CollectionTable(name = "address_street", joinColumns = @JoinColumn(name = "address_id"))
+	@Column(name = "street")
+	private List<String> street = new ArrayList<>();
 
 	@Column(name = "city")
 	private String city;
@@ -61,7 +50,7 @@ public class AddressOutput {
 	public AddressOutput() {
 	};
 
-	public AddressOutput(Long id, Set<String> street, String city, String state, String zipCode, String country) {
+	public AddressOutput(Long id, List<String> street, String city, String state, String zipCode, String country) {
 		this.id = id;
 		this.street = street;
 		this.city = city;
@@ -71,21 +60,21 @@ public class AddressOutput {
 	}
 
 	public List<AddressOutput> convertInputToOutput(AddressIngest input) {
-		
+
 		AddressOutput outputObject = new AddressOutput();
-		
-		Set<String> streets = Utils.convertListToSet(input.getStreet());
-		
+
+		List<String> streets = input.getStreet();
+
 		outputObject.setStreet(streets);
 		outputObject.setCity(input.getCity());
 		outputObject.setState(input.getState());
 		outputObject.setZipCode(input.getZipCode());
 		outputObject.setCountry(input.getCountry());
 		List<AddressOutput> output = new ArrayList<AddressOutput>(Arrays.asList(outputObject));
-		
+
 		return output;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -94,11 +83,11 @@ public class AddressOutput {
 		this.id = id;
 	}
 
-	public Set<String> getStreet() {
+	public List<String> getStreet() {
 		return street;
 	}
 
-	public void setStreet(Set<String> street) {
+	public void setStreet(List<String> street) {
 		this.street = street;
 	}
 
