@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 //@Entity
 public class AddressIngest {
 
-	@JsonProperty("firstName")
+	@JsonProperty("street")
 	private List<String> street;
 
 	@JsonProperty("city")
