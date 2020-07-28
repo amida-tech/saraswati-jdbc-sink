@@ -31,7 +31,17 @@ public class InputMock {
 		addressMock.setZipCode("52327-1701");
 		addressMock.setState("IA");
 		addressMock.setCountry("United Earth Federation");
-		inputMock.setAddress(addressMock);
+		inputMock.setPatientAddress(addressMock);
+		
+		AddressIngest providerAddressMock = new AddressIngest();
+		List<String> providerStreetList = new ArrayList<String>(Arrays.asList("1701 Medical St."));
+		
+		providerAddressMock.setStreet(providerStreetList);
+		providerAddressMock.setCity("New York 2");
+		providerAddressMock.setZipCode("52327-1701");
+		providerAddressMock.setState("NY");
+		providerAddressMock.setCountry("United Earth Federation");
+		inputMock.setProviderAddress(providerAddressMock);
 		
 		//Assemble mock
 		inputMock.setId((long) 1701);
