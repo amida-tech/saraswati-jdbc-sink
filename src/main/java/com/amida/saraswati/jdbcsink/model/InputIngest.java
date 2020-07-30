@@ -13,7 +13,7 @@ public class InputIngest {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@JsonProperty("pateintFirstName")
+	@JsonProperty("patientFirstName")
 	private List<String> firstName;
 
 	@JsonProperty("patientLastName")
