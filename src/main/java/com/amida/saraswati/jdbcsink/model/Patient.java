@@ -14,8 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -24,7 +22,6 @@ import com.amida.saraswati.jdbcsink.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "patient")
 public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,28 +29,27 @@ public class Patient {
 
 	@ElementCollection
 	@CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
-	@OrderColumn
-	@Column(name = "firstName")
+	@Column(name = "first_name")
 	private List<String> firstName = new ArrayList<>();
 
-	@Column(name = "lastName")
+	@Column(name = "patient_last_name")
 	private String lastName;
 
-	@Column(name = "lastNameLowercase")
+	@Column(name = "patient_last_name_lowercase")
 	@JsonIgnore
 	private String lastNameLowercase;
 
-	@Column(name = "dateOfBirth")
+	@Column(name = "date_of_birth")
 	private String dateOfBirth;
 
 	@ElementCollection
 	@CollectionTable(name = "patient_subscriber_id", joinColumns = @JoinColumn(name = "patient_id"))
-	@Column(name = "subscriberId")
+	@Column(name = "subscriber_Id")
 	private Set<String> subscriberId;
 
 	@ElementCollection
 	@CollectionTable(name = "patient_group_id", joinColumns = @JoinColumn(name = "patient_id"))
-	@Column(name = "groupId")
+	@Column(name = "group_id")
 	private Set<String> groupId;
 
 	@Column(name = "language")
@@ -65,13 +61,35 @@ public class Patient {
 	@Column(name = "gender")
 	private String gender;
 
-	@Column(name = "maritalStatus")
+	@Column(name = "marital_status")
 	private String maritalStatus;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address", referencedColumnName = "id")
-	private List<AddressOutput> address;
+	private List<Address> patientAddress;
+
+	@ElementCollection
+	@CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
+	@Column(name = "provider_first_name")
+	private List<String> providerFirstName;
+
+	@Column(name = "provider_last_name")
+	private String providerLastName;
+
+	@Column(name = "provider_last_name_lowercase")
+	@JsonIgnore
+	private String providerLastNameLowercase;
+
+	@ElementCollection
+	@CollectionTable(name = "provider_id", joinColumns = @JoinColumn(name = "patient_id"))
+	@Column(name = "provider_Id")
+	private Set<String> providerId;
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address", referencedColumnName = "id")
+	private List<Address> providerAddress;
 
 	@Column(name = "a1c")
 	private Boolean a1c;
@@ -82,10 +100,13 @@ public class Patient {
 	@Column(name = "psa")
 	private Boolean psa;
 
-	@Column(name = "leadScreening")
+	@Column(name = "lead_screening")
 	private Boolean leadScreening;
 
-	@Column(name = "fileIndicator")
+	@Column(name = "diabetes")
+	private Boolean diabetes;
+
+	@Column(name = "file_indicator")
 	private String fileIndicator;
 
 	public Patient() {
@@ -93,8 +114,9 @@ public class Patient {
 
 	public Patient(Long id, List<String> firstName, String lastName, String dateOfBirth, Set<String> subscriberId,
 			Set<String> groupId, String language, String race, String gender, String maritalStatus,
-			List<AddressOutput> address, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening,
-			String fileIndicator) {
+			List<Address> patientAddress, List<String> providerFirstName, String providerLastName,
+			Set<String> providerId, List<Address> providerAddress, Boolean a1c, Boolean cholesterol, Boolean psa,
+			Boolean leadScreening, Boolean diabetes, String fileIndicator) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -105,13 +127,19 @@ public class Patient {
 		this.groupId = groupId;
 		this.language = language;
 		this.race = race;
-		this.gender = gender.toUpperCase();
+		this.gender = gender;
 		this.maritalStatus = maritalStatus;
-		this.address = address;
+		this.patientAddress = patientAddress;
+		this.providerFirstName = providerFirstName;
+		this.providerLastName = providerLastName;
+		this.providerLastNameLowercase = providerLastName.toLowerCase();
+		this.providerId = providerId;
+		this.providerAddress = providerAddress;
 		this.a1c = a1c;
 		this.cholesterol = cholesterol;
 		this.psa = psa;
 		this.leadScreening = leadScreening;
+		this.diabetes = diabetes;
 		this.fileIndicator = fileIndicator;
 	}
 
@@ -132,10 +160,15 @@ public class Patient {
 		output.setFileIndicator(input.getFileIndicator());
 
 		// Run address converter
-		AddressOutput addressConverter = new AddressOutput();
-		List<AddressOutput> addressOutput = new ArrayList<AddressOutput>();
-		addressOutput = addressConverter.convertInputToOutput(input.getAddress());
-		output.setAddress(addressOutput);
+		Address patientAddressConverter = new Address();
+		List<Address> patentAddressOutput = new ArrayList<Address>();
+		patentAddressOutput = patientAddressConverter.convertInputToOutputPatient(input.getPatientAddress());
+		output.setPatientAddress(patentAddressOutput);
+
+		Address providerAddressConverter = new Address();
+		List<Address> providerAddressOutput = new ArrayList<Address>();
+		providerAddressOutput = providerAddressConverter.convertInputToOutputProvider(input.getProviderAddress());
+		output.setProviderAddress(providerAddressOutput);
 
 		// Booleans
 		output.setA1c(input.isA1c());
@@ -169,6 +202,10 @@ public class Patient {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 		this.lastNameLowercase = lastName.toLowerCase();
+	}
+
+	public String getLastNameLowercase() {
+		return lastNameLowercase;
 	}
 
 	public String getDateOfBirth() {
@@ -216,7 +253,7 @@ public class Patient {
 	}
 
 	public void setGender(String gender) {
-		this.gender = gender.toUpperCase();
+		this.gender = gender;
 	}
 
 	public String getMaritalStatus() {
@@ -227,12 +264,49 @@ public class Patient {
 		this.maritalStatus = maritalStatus;
 	}
 
-	public List<AddressOutput> getAddress() {
-		return address;
+	public List<Address> getPatientAddress() {
+		return patientAddress;
 	}
 
-	public void setAddress(List<AddressOutput> address) {
-		this.address = address;
+	public void setPatientAddress(List<Address> patientAddress) {
+		this.patientAddress = patientAddress;
+	}
+
+	public List<String> getProviderFirstName() {
+		return providerFirstName;
+	}
+
+	public void setProviderFirstName(List<String> providerFirstName) {
+		this.providerFirstName = providerFirstName;
+	}
+
+	public String getProviderLastName() {
+		return providerLastName;
+	}
+
+	public void setProviderLastName(String providerLastName) {
+		this.providerLastName = providerLastName;
+		this.providerLastNameLowercase = providerLastName.toLowerCase();
+	}
+
+	public String getProviderLastNameLowercase() {
+		return providerLastNameLowercase;
+	}
+
+	public Set<String> getProviderId() {
+		return providerId;
+	}
+
+	public void setProviderId(Set<String> providerId) {
+		this.providerId = providerId;
+	}
+
+	public List<Address> getProviderAddress() {
+		return providerAddress;
+	}
+
+	public void setProviderAddress(List<Address> providerAddress) {
+		this.providerAddress = providerAddress;
 	}
 
 	public Boolean getA1c() {
@@ -267,20 +341,20 @@ public class Patient {
 		this.leadScreening = leadScreening;
 	}
 
+	public Boolean getDiabetes() {
+		return diabetes;
+	}
+
+	public void setDiabetes(Boolean diabetes) {
+		this.diabetes = diabetes;
+	}
+
 	public String getFileIndicator() {
 		return fileIndicator;
 	}
 
 	public void setFileIndicator(String fileIndicator) {
 		this.fileIndicator = fileIndicator;
-	}
-
-	public String getLastNameLowercase() {
-		return lastNameLowercase;
-	}
-
-	public void setLastNameLowercase(String lastNameLowercase) {
-		this.lastNameLowercase = lastNameLowercase;
 	}
 
 }

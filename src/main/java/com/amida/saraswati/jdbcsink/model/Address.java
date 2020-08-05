@@ -2,7 +2,6 @@ package com.amida.saraswati.jdbcsink.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,20 +19,16 @@ import com.amida.saraswati.jdbcsink.utils.Utils;
 
 @Entity
 @Table(name = "address")
-public class AddressOutput {
+public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-//	@Type(type = "string-array")
-//	@Column(name = "street", columnDefinition = "text[]")
-//	private String[] street;
-
 	@ElementCollection
 	@CollectionTable(name = "address_street", joinColumns = @JoinColumn(name = "address_id"))
 	@Column(name = "street")
-	private List<String> street = new ArrayList<>();
+	private Set<String> street;
 
 	@Column(name = "city")
 	private String city;
@@ -41,36 +36,59 @@ public class AddressOutput {
 	@Column(name = "state")
 	private String state;
 
-	@Column(name = "zipCode")
+	@Column(name = "zip_code")
 	private String zipCode;
 
 	@Column(name = "country")
 	private String country;
+	
+	@Column(name = "patient_address_flag")
+	private boolean patientAddressFlag;
 
-	public AddressOutput() {
+	public Address() {
 	};
 
-	public AddressOutput(Long id, List<String> street, String city, String state, String zipCode, String country) {
+	public Address(Long id, Set<String> street, String city, String state, String zipCode, String country, boolean patientAddressFlag) {
 		this.id = id;
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
 		this.country = country;
+		this.patientAddressFlag = patientAddressFlag;
 	}
+	
+	public List<Address> convertInputToOutputPatient(AddressIngest input) {
 
-	public List<AddressOutput> convertInputToOutput(AddressIngest input) {
+		Address outputObject = new Address();
 
-		AddressOutput outputObject = new AddressOutput();
-
-		List<String> streets = input.getStreet();
+		Set<String> streets = Utils.convertListToSet(input.getStreet());
 
 		outputObject.setStreet(streets);
 		outputObject.setCity(input.getCity());
 		outputObject.setState(input.getState());
 		outputObject.setZipCode(input.getZipCode());
 		outputObject.setCountry(input.getCountry());
-		List<AddressOutput> output = new ArrayList<AddressOutput>(Arrays.asList(outputObject));
+		outputObject.setPatientAddressFlag(true);
+		
+		List<Address> output = new ArrayList<Address>(Arrays.asList(outputObject));
+
+		return output;
+	}
+	
+	public List<Address> convertInputToOutputProvider(AddressIngest input) {
+
+		Address outputObject = new Address();
+
+		Set<String> streets = Utils.convertListToSet(input.getStreet());
+
+		outputObject.setStreet(streets);
+		outputObject.setCity(input.getCity());
+		outputObject.setState(input.getState());
+		outputObject.setZipCode(input.getZipCode());
+		outputObject.setCountry(input.getCountry());
+		
+		List<Address> output = new ArrayList<Address>(Arrays.asList(outputObject));
 
 		return output;
 	}
@@ -83,11 +101,11 @@ public class AddressOutput {
 		this.id = id;
 	}
 
-	public List<String> getStreet() {
+	public Set<String> getStreet() {
 		return street;
 	}
 
-	public void setStreet(List<String> street) {
+	public void setStreet(Set<String> street) {
 		this.street = street;
 	}
 
@@ -122,5 +140,15 @@ public class AddressOutput {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+	public boolean isPatientAddressFlag() {
+		return patientAddressFlag;
+	}
+
+	public void setPatientAddressFlag(boolean patientAddressFlag) {
+		this.patientAddressFlag = patientAddressFlag;
+	}
+	
+	
 
 }

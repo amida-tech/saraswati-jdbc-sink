@@ -13,10 +13,10 @@ public class InputIngest {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@JsonProperty("firstName")
+	@JsonProperty("patientFirstName")
 	private List<String> firstName;
 
-	@JsonProperty("lastName")
+	@JsonProperty("patientLastName")
 	private String lastName;
 
 	@JsonProperty("dateOfBirth")
@@ -31,8 +31,8 @@ public class InputIngest {
 	@JsonProperty("language")
 	private String language;
 
-	@JsonProperty("address")
-	private AddressIngest address;
+	@JsonProperty("patientAddress")
+	private AddressIngest patientAddress;
 
 	@JsonProperty("gender")
 	private String gender;
@@ -42,6 +42,18 @@ public class InputIngest {
 
 	@JsonProperty("race")
 	private String race;
+
+	@JsonProperty("providerFirstName")
+	private List<String> providerFirstName;
+
+	@JsonProperty("providerLastName")
+	private String providerLastName;
+
+	@JsonProperty("providerId")
+	private String providerId;
+
+	@JsonProperty("providerAddress")
+	private AddressIngest providerAddress;
 
 	@JsonProperty("a1c")
 	private boolean a1c;
@@ -55,6 +67,9 @@ public class InputIngest {
 	@JsonProperty("leadScreening")
 	private boolean leadScreening;
 
+	@JsonProperty("diabetes")
+	private boolean diabetes;
+
 	@JsonProperty("fileIndicator")
 	private String fileIndicator;
 
@@ -63,8 +78,9 @@ public class InputIngest {
 
 	public InputIngest(Long id, String lastName, List<String> firstName, String dateOfBirth, List<String> subscriberId,
 			List<String> groupId, String language, String race, String gender, String maritalStatus,
-			AddressIngest address, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening,
-			String fileIndicator) {
+			AddressIngest address, List<String> providerFirstName, String providerLastName, String providerId,
+			AddressIngest providerAddress, Boolean a1c, Boolean cholesterol, Boolean psa, Boolean leadScreening,
+			Boolean diabetes, String fileIndicator) {
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -75,11 +91,16 @@ public class InputIngest {
 		this.race = race;
 		this.gender = gender;
 		this.maritalStatus = maritalStatus;
-		this.address = address;
+		this.patientAddress = address;
+		this.providerFirstName = providerFirstName;
+		this.providerLastName = providerLastName;
+		this.providerId = providerId;
+		this.providerAddress = providerAddress;
 		this.a1c = a1c;
 		this.cholesterol = cholesterol;
 		this.psa = psa;
 		this.leadScreening = leadScreening;
+		this.diabetes = diabetes;
 		this.fileIndicator = fileIndicator;
 	}
 
@@ -139,12 +160,12 @@ public class InputIngest {
 		this.language = language;
 	}
 
-	public AddressIngest getAddress() {
-		return address;
+	public AddressIngest getPatientAddress() {
+		return patientAddress;
 	}
 
-	public void setAddress(AddressIngest address) {
-		this.address = address;
+	public void setPatientAddress(AddressIngest patientAddress) {
+		this.patientAddress = patientAddress;
 	}
 
 	public String getGender() {
@@ -169,6 +190,38 @@ public class InputIngest {
 
 	public void setRace(String race) {
 		this.race = race;
+	}
+
+	public List<String> getProviderFirstName() {
+		return providerFirstName;
+	}
+
+	public void setProviderFirstName(List<String> providerFirstName) {
+		this.providerFirstName = providerFirstName;
+	}
+
+	public String getProviderLastName() {
+		return providerLastName;
+	}
+
+	public void setProviderLastName(String providerLastName) {
+		this.providerLastName = providerLastName;
+	}
+
+	public String getProviderId() {
+		return providerId;
+	}
+
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
+
+	public AddressIngest getProviderAddress() {
+		return providerAddress;
+	}
+
+	public void setProviderAddress(AddressIngest providerAddress) {
+		this.providerAddress = providerAddress;
 	}
 
 	public boolean isA1c() {
@@ -203,6 +256,14 @@ public class InputIngest {
 		this.leadScreening = leadScreening;
 	}
 
+	public boolean isDiabetes() {
+		return diabetes;
+	}
+
+	public void setDiabetes(boolean diabetes) {
+		this.diabetes = diabetes;
+	}
+
 	public String getFileIndicator() {
 		return fileIndicator;
 	}
@@ -210,5 +271,4 @@ public class InputIngest {
 	public void setFileIndicator(String fileIndicator) {
 		this.fileIndicator = fileIndicator;
 	}
-
 }
