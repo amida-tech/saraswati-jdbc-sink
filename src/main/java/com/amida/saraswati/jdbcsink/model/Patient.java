@@ -32,10 +32,10 @@ public class Patient {
 	@Column(name = "first_name")
 	private List<String> firstName = new ArrayList<>();
 
-	@Column(name = "last_name")
+	@Column(name = "patient_last_name")
 	private String lastName;
 
-	@Column(name = "last_name_lowercase")
+	@Column(name = "patient_last_name_lowercase")
 	@JsonIgnore
 	private String lastNameLowercase;
 
@@ -66,8 +66,8 @@ public class Patient {
 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "patient_address", referencedColumnName = "id")
-	private List<PatientAddress> patientAddress;
+	@JoinColumn(name = "address", referencedColumnName = "id")
+	private List<Address> patientAddress;
 
 	@ElementCollection
 	@CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
@@ -88,8 +88,8 @@ public class Patient {
 
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "provider_address", referencedColumnName = "id")
-	private List<ProviderAddress> providerAddress;
+	@JoinColumn(name = "address", referencedColumnName = "id")
+	private List<Address> providerAddress;
 
 	@Column(name = "a1c")
 	private Boolean a1c;
@@ -114,9 +114,9 @@ public class Patient {
 
 	public Patient(Long id, List<String> firstName, String lastName, String dateOfBirth, Set<String> subscriberId,
 			Set<String> groupId, String language, String race, String gender, String maritalStatus,
-			List<PatientAddress> patientAddress, List<String> providerFirstName, String providerLastName,
-			Set<String> providerId, List<ProviderAddress> providerAddress, Boolean a1c, Boolean cholesterol,
-			Boolean psa, Boolean leadScreening, Boolean diabetes, String fileIndicator) {
+			List<Address> patientAddress, List<String> providerFirstName, String providerLastName,
+			Set<String> providerId, List<Address> providerAddress, Boolean a1c, Boolean cholesterol, Boolean psa,
+			Boolean leadScreening, Boolean diabetes, String fileIndicator) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -142,7 +142,7 @@ public class Patient {
 		this.diabetes = diabetes;
 		this.fileIndicator = fileIndicator;
 	}
-	
+
 	public Patient convertInputToPatient(InputIngest input) {
 		Patient output = new Patient();
 
@@ -160,16 +160,16 @@ public class Patient {
 		output.setFileIndicator(input.getFileIndicator());
 
 		// Run address converter
-		PatientAddress patientAddressConverter = new PatientAddress();
-		List<PatientAddress> patentAddressOutput = new ArrayList<PatientAddress>();
+		Address patientAddressConverter = new Address();
+		List<Address> patentAddressOutput = new ArrayList<Address>();
 		patentAddressOutput = patientAddressConverter.convertInputToOutputPatient(input.getPatientAddress());
 		output.setPatientAddress(patentAddressOutput);
-		
-		ProviderAddress providerAddressConverter = new ProviderAddress();
-		List<ProviderAddress> providerAddressOutput = new ArrayList<ProviderAddress>();
+
+		Address providerAddressConverter = new Address();
+		List<Address> providerAddressOutput = new ArrayList<Address>();
 		providerAddressOutput = providerAddressConverter.convertInputToOutputProvider(input.getProviderAddress());
 		output.setProviderAddress(providerAddressOutput);
-		
+
 		// Booleans
 		output.setA1c(input.isA1c());
 		output.setCholesterol(input.isCholesterol());
@@ -264,11 +264,11 @@ public class Patient {
 		this.maritalStatus = maritalStatus;
 	}
 
-	public List<PatientAddress> getPatientAddress() {
+	public List<Address> getPatientAddress() {
 		return patientAddress;
 	}
 
-	public void setPatientAddress(List<PatientAddress> patientAddress) {
+	public void setPatientAddress(List<Address> patientAddress) {
 		this.patientAddress = patientAddress;
 	}
 
@@ -301,11 +301,11 @@ public class Patient {
 		this.providerId = providerId;
 	}
 
-	public List<ProviderAddress> getProviderAddress() {
+	public List<Address> getProviderAddress() {
 		return providerAddress;
 	}
 
-	public void setProviderAddress(List<ProviderAddress> providerAddress) {
+	public void setProviderAddress(List<Address> providerAddress) {
 		this.providerAddress = providerAddress;
 	}
 

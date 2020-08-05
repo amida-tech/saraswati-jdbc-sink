@@ -41,22 +41,26 @@ public class Address {
 
 	@Column(name = "country")
 	private String country;
+	
+	@Column(name = "patient_address_flag")
+	private boolean patientAddressFlag;
 
 	public Address() {
 	};
 
-	public Address(Long id, Set<String> street, String city, String state, String zipCode, String country) {
+	public Address(Long id, Set<String> street, String city, String state, String zipCode, String country, boolean patientAddressFlag) {
 		this.id = id;
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
 		this.country = country;
+		this.patientAddressFlag = patientAddressFlag;
 	}
 	
-	public List<PatientAddress> convertInputToOutputPatient(AddressIngest input) {
+	public List<Address> convertInputToOutputPatient(AddressIngest input) {
 
-		PatientAddress outputObject = new PatientAddress();
+		Address outputObject = new Address();
 
 		Set<String> streets = Utils.convertListToSet(input.getStreet());
 
@@ -65,15 +69,16 @@ public class Address {
 		outputObject.setState(input.getState());
 		outputObject.setZipCode(input.getZipCode());
 		outputObject.setCountry(input.getCountry());
+		outputObject.setPatientAddressFlag(true);
 		
-		List<PatientAddress> output = new ArrayList<PatientAddress>(Arrays.asList(outputObject));
+		List<Address> output = new ArrayList<Address>(Arrays.asList(outputObject));
 
 		return output;
 	}
 	
-	public List<ProviderAddress> convertInputToOutputProvider(AddressIngest input) {
+	public List<Address> convertInputToOutputProvider(AddressIngest input) {
 
-		ProviderAddress outputObject = new ProviderAddress();
+		Address outputObject = new Address();
 
 		Set<String> streets = Utils.convertListToSet(input.getStreet());
 
@@ -83,7 +88,7 @@ public class Address {
 		outputObject.setZipCode(input.getZipCode());
 		outputObject.setCountry(input.getCountry());
 		
-		List<ProviderAddress> output = new ArrayList<ProviderAddress>(Arrays.asList(outputObject));
+		List<Address> output = new ArrayList<Address>(Arrays.asList(outputObject));
 
 		return output;
 	}
@@ -135,5 +140,15 @@ public class Address {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+	public boolean isPatientAddressFlag() {
+		return patientAddressFlag;
+	}
+
+	public void setPatientAddressFlag(boolean patientAddressFlag) {
+		this.patientAddressFlag = patientAddressFlag;
+	}
+	
+	
 
 }

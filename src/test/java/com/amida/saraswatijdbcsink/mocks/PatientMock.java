@@ -6,9 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.amida.saraswati.jdbcsink.model.Address;
 import com.amida.saraswati.jdbcsink.model.Patient;
-import com.amida.saraswati.jdbcsink.model.PatientAddress;
-import com.amida.saraswati.jdbcsink.model.ProviderAddress;
 
 public class PatientMock {
 	public Patient outputMock() {
@@ -29,7 +28,7 @@ public class PatientMock {
 		outputMock.setGroupId(groupIdList);
 		
 		//Address mock
-		PatientAddress addressMock = new PatientAddress();
+		Address addressMock = new Address();
 		Set<String> streetList = new HashSet<String>();
 		subscriberIdList.add("1776 Constitution Avenue");
 	
@@ -38,10 +37,10 @@ public class PatientMock {
 		addressMock.setZipCode("52327-1701");
 		addressMock.setState("IA");
 		addressMock.setCountry("United Earth Federation");
-		outputMock.setPatientAddress(new ArrayList<PatientAddress>(Arrays.asList(addressMock)));
+		outputMock.setPatientAddress(new ArrayList<Address>(Arrays.asList(addressMock)));
 		
 		// Provider Mock
-		ProviderAddress providerAddresMock = new ProviderAddress();
+		Address providerAddresMock = new Address();
 		Set<String> streetList2 = new HashSet<String>();
 		streetList2.add("1701 Medical St.");
 		
@@ -56,7 +55,7 @@ public class PatientMock {
 		providerAddresMock.setZipCode("52327-1701");
 		providerAddresMock.setState("NY");
 		providerAddresMock.setCountry("United Earth Federation");
-		outputMock.setProviderAddress(new ArrayList<ProviderAddress>(Arrays.asList(providerAddresMock)));
+		outputMock.setProviderAddress(new ArrayList<Address>(Arrays.asList(providerAddresMock)));
 		outputMock.setProviderLastName("McCoy");
 		outputMock.setProviderFirstName(providerFirstNameList);
 		outputMock.setProviderId(providerIdList);
