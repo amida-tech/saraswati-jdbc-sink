@@ -70,7 +70,7 @@ public class Patient {
 	private List<Address> patientAddress;
 
 	@ElementCollection
-	@CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
+	@CollectionTable(name = "provider_first_name", joinColumns = @JoinColumn(name = "patient_id"))
 	@Column(name = "provider_first_name")
 	private List<String> providerFirstName;
 
