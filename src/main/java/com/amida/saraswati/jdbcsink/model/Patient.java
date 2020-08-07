@@ -29,7 +29,7 @@ public class Patient {
 
 	@ElementCollection
 	@CollectionTable(name = "patient_first_name", joinColumns = @JoinColumn(name = "patient_id"))
-	@Column(name = "first_name")
+	@Column(name = "patient_first_name")
 	private List<String> firstName = new ArrayList<>();
 
 	@Column(name = "patient_last_name")
@@ -44,7 +44,7 @@ public class Patient {
 
 	@ElementCollection
 	@CollectionTable(name = "patient_subscriber_id", joinColumns = @JoinColumn(name = "patient_id"))
-	@Column(name = "subscriber_Id")
+	@Column(name = "subscriber_id")
 	private Set<String> subscriberId;
 
 	@ElementCollection
@@ -83,7 +83,7 @@ public class Patient {
 
 	@ElementCollection
 	@CollectionTable(name = "provider_id", joinColumns = @JoinColumn(name = "patient_id"))
-	@Column(name = "provider_Id")
+	@Column(name = "provider_id")
 	private Set<String> providerId;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
