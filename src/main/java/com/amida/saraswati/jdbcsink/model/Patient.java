@@ -1,6 +1,7 @@
 package com.amida.saraswati.jdbcsink.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -158,12 +159,21 @@ public class Patient {
 		output.setGender(input.getGender());
 		output.setMaritalStatus(input.getMaritalStatus());
 		output.setFileIndicator(input.getFileIndicator());
+		
+		//Provider mapping
+		Set<String> providerIds = new HashSet<String>();
+		providerIds.add(input.getProviderId());
+		
+		output.setProviderAddress(providerAddress);
+		output.setProviderFirstName(input.getProviderFirstName());
+		output.setProviderId(providerIds);
+		output.setProviderLastName(input.getProviderLastName());
 
 		// Run address converter
 		Address patientAddressConverter = new Address();
-		List<Address> patentAddressOutput = new ArrayList<Address>();
-		patentAddressOutput = patientAddressConverter.convertInputToOutputPatient(input.getPatientAddress());
-		output.setPatientAddress(patentAddressOutput);
+		List<Address> patientAddressOutput = new ArrayList<Address>();
+		patientAddressOutput = patientAddressConverter.convertInputToOutputPatient(input.getPatientAddress());
+		output.setPatientAddress(patientAddressOutput);
 
 		Address providerAddressConverter = new Address();
 		List<Address> providerAddressOutput = new ArrayList<Address>();

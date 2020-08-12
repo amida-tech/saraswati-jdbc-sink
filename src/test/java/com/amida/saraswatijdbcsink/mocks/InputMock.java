@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.amida.saraswati.jdbcsink.model.AddressIngest;
 import com.amida.saraswati.jdbcsink.model.InputIngest;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class InputMock {
 	public InputIngest inputMock() {
@@ -21,6 +22,13 @@ public class InputMock {
 		inputMock.setFirstName(firstNameList);
 		inputMock.setSubscriberId(subscriberIdList);
 		inputMock.setGroupId(groupIdList);
+		
+		//Provider Mock
+		List<String> providerFirstName = new ArrayList<String>(Arrays.asList("Leonard", "Horatio"));
+
+		inputMock.setProviderFirstName(providerFirstName);
+		inputMock.setProviderId("ABC123456789");
+		inputMock.setProviderLastName("McCoy");
 		
 		//Address mock
 		AddressIngest addressMock = new AddressIngest();
