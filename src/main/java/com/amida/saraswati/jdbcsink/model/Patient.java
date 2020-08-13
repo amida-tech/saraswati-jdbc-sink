@@ -185,6 +185,7 @@ public class Patient {
 		output.setCholesterol(input.isCholesterol());
 		output.setPsa(input.isPsa());
 		output.setLeadScreening(input.isLeadScreening());
+		output.setDiabetes(input.isDiabetes());
 
 		return output;
 	}
